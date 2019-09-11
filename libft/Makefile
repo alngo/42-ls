@@ -12,7 +12,7 @@
 NAME = libft.a
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
-SUB_PATH = /{type,mem,assert,put,str,conv,lst,gnl}
+SUB_PATH = /{type,mem,assert,put,str,conv,lst,gnl,printf}
 
 SRC_NAME = 	assert/ft_assert.c\
 		assert/ft_test.c\
@@ -101,7 +101,26 @@ SRC_NAME = 	assert/ft_assert.c\
 		lst/ft_lstnew.c\
 		lst/ft_lstreverse.c\
 		\
-		gnl/ft_gnl.c
+		gnl/ft_gnl.c\
+		\
+		printf/ft_litob.c\
+		printf/ft_printf.c\
+		printf/ft_xprintf.c\
+		printf/handle_binary.c\
+		printf/handle_character.c\
+		printf/handle_decimal.c\
+		printf/handle_hexadecimal.c\
+		printf/handle_octal.c\
+		printf/handle_percent.c\
+		printf/handle_pointer.c\
+		printf/handle_string.c\
+		printf/handle_unsigned.c\
+		printf/handle_upper.c\
+		printf/parse.c\
+		printf/utils.c\
+		printf/wchar_t.c\
+		printf/miniprintf.c\
+		printf/ft_putnstr_fd.c
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
 OBJ_PATH = obj

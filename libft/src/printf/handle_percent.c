@@ -1,20 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   handle_percent.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alngo <alngo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/11 11:14:29 by alngo             #+#    #+#             */
-/*   Updated: 2019/09/11 13:33:25 by alngo            ###   ########.fr       */
+/*   Created: 2017/06/20 13:07:55 by alngo             #+#    #+#             */
+/*   Updated: 2017/07/26 21:45:22 by alngo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ls.h"
+#include "libft.h"
 
-int		main(int ac, char **av)
+int			handle_percent(t_arg *arg, size_t *len)
 {
-	(void)ac;
-	(void)av;
+	char	*tmp;
+	size_t	size;
+
+	tmp = "%";
+	size = ft_strlen(tmp);
+	push_tmp(tmp, arg, len, size);
 	return (1);
 }
