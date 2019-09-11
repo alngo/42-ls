@@ -119,7 +119,8 @@ SRC_NAME = 	assert/ft_assert.c\
 		printf/parse.c\
 		printf/utils.c\
 		printf/wchar_t.c\
-		printf/miniprintf.c
+		printf/miniprintf.c\
+		printf/ft_putnstr_fd.c
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
 OBJ_PATH = obj

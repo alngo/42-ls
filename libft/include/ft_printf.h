@@ -6,7 +6,7 @@
 /*   By: alngo <alngo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/28 16:07:02 by alngo             #+#    #+#             */
-/*   Updated: 2019/09/11 13:27:04 by alngo            ###   ########.fr       */
+/*   Updated: 2019/09/11 13:32:26 by alngo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,5 +79,6 @@ int					handle_unsigned(t_arg *arg, va_list *ap, size_t *len);
 int					handle_binary(t_arg *arg, va_list *ap, size_t *len);
 int					handle_upper(t_arg *arg, va_list *ap, size_t *len);
 int					xseg_wchart(t_wchart *w, wchar_t c);
+void				ft_putnstr_fd(char *s, size_t n, int fd);
 
 #endif

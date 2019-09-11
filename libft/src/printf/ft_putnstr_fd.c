@@ -1,20 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_putnstr_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alngo <alngo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/11 11:14:29 by alngo             #+#    #+#             */
-/*   Updated: 2019/09/11 13:33:25 by alngo            ###   ########.fr       */
+/*   Created: 2017/06/20 13:18:03 by alngo             #+#    #+#             */
+/*   Updated: 2017/06/20 13:18:40 by alngo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ls.h"
+#include "libft.h"
 
-int		main(int ac, char **av)
+void		ft_putnstr_fd(char *s, size_t n, int fd)
 {
-	(void)ac;
-	(void)av;
-	return (1);
+	while (n)
+	{
+		write(1, &(*s), fd);
+		s++;
+		n--;
+	}
 }
