@@ -6,7 +6,7 @@
 /*   By: alngo <alngo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/11 16:43:56 by alngo             #+#    #+#             */
-/*   Updated: 2019/06/04 10:02:27 by alngo            ###   ########.fr       */
+/*   Updated: 2019/09/11 11:54:11 by alngo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ char			*ft_strmapi(const char *s, char (*f)(unsigned int, char))
 	int			i;
 	char		*ret;
 
-  if (!f)
-    return (NULL);
+	if (!f)
+		return (NULL);
 	if (!(ret = ft_strnew(ft_strlen(s))))
 		return (NULL);
 	i = 0;

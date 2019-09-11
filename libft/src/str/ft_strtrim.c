@@ -6,7 +6,7 @@
 /*   By: alngo <alngo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/11 16:43:56 by alngo             #+#    #+#             */
-/*   Updated: 2019/06/04 10:20:14 by alngo            ###   ########.fr       */
+/*   Updated: 2019/09/11 11:55:18 by alngo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ char			*ft_strtrim(const char *s)
 {
 	char		*end;
 
-  if (!s)
-    return (NULL);
+	if (!s)
+		return (NULL);
 	end = ft_strchr(s, '\0') - 1;
 	while (s != end && (*s == ' ' || *s == '\n' || *s == '\t'))
 		s++;

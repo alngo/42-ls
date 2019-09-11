@@ -6,7 +6,7 @@
 /*   By: alngo <alngo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/11 16:59:23 by alngo             #+#    #+#             */
-/*   Updated: 2019/06/03 07:33:39 by alngo            ###   ########.fr       */
+/*   Updated: 2019/09/11 11:45:06 by alngo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,6 @@ int		ft_isupper(int c);
 int		ft_isxdigit(int c);
 int		ft_tolower(int c);
 int		ft_toupper(int c);
-int 		ft_isascii(int c);
+int		ft_isascii(int c);
 
 #endif

@@ -6,12 +6,12 @@
 /*   By: alngo <alngo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/29 14:24:01 by alngo             #+#    #+#             */
-/*   Updated: 2017/10/12 19:30:06 by alngo            ###   ########.fr       */
+/*   Updated: 2019/09/11 11:40:41 by alngo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#ifndef FT_GNL_H
+# define FT_GNL_H
 
 # define BUFF_SIZE 42
 

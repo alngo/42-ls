@@ -6,7 +6,7 @@
 #    By: alngo <alngo@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/11 11:09:45 by alngo             #+#    #+#              #
-#    Updated: 2019/09/11 11:25:18 by alngo            ###   ########.fr        #
+#    Updated: 2019/09/11 11:46:03 by alngo            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,7 +52,7 @@ clean:
 	$(RM) -r $(OBJ_PATH)
 
 fclean:	clean
-	make clean -C $(LFT_PATH)
+	make fclean -C $(LFT_PATH)
 	$(RM) -r $(NAME)
 
 re:	fclean all

@@ -6,12 +6,12 @@
 /*   By: alngo <alngo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/01 12:54:15 by alngo             #+#    #+#             */
-/*   Updated: 2019/06/06 00:17:53 by alngo            ###   ########.fr       */
+/*   Updated: 2019/09/11 11:44:46 by alngo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
-#define LIBFT_H
+# define LIBFT_H
 
 # include <limits.h>
 # include <errno.h>

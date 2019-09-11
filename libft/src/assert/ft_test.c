@@ -6,7 +6,7 @@
 /*   By: alngo <alngo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/01 20:57:08 by alngo             #+#    #+#             */
-/*   Updated: 2019/06/01 21:20:22 by alngo            ###   ########.fr       */
+/*   Updated: 2019/09/11 11:48:30 by alngo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 
 char	*ft_test(char *test(void), int *nb)
 {
-	char *msg = test();
+	char *msg;
+
+	msg = test();
 	(*nb)++;
 	return (msg ? msg : NULL);
 }

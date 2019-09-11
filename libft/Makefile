@@ -117,7 +117,7 @@ LOG_YELLOW		= \033[1;33m
 SRC = $(addprefix $(SRC_PATH)/,$(SRC_NAME))
 OBJ = $(addprefix $(OBJ_PATH)/,$(OBJ_NAME))
 
-.PHONY: all clean fclean re test
+.PHONY: all clean fclean re
 
 all: $(NAME)
 
@@ -139,12 +139,7 @@ clean:
 
 fclean:	clean
 	$(RM) -r $(NAME)
-	$(RM) -r $(TEST_NAME)
 
 re:	fclean all
-
-test: $(NAME)
-	@$(CC) -o ./test $(CFLAGS) -I $(INCLUDE_PATH) ./main.c $(NAME)
-	@./test Makefile
 
 -include $(OBJ:.o=.d)

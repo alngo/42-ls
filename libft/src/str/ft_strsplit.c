@@ -1,10 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strsplit.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: alngo <alngo@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/09/11 11:55:52 by alngo             #+#    #+#             */
+/*   Updated: 2019/09/11 11:56:09 by alngo            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
 static char		**alloc_tab(char const *s, char c)
 {
 	size_t		word_count;
 	char		**tab;
-	int		i;
+	int			i;
 
 	word_count = 0;
 	i = 0;
@@ -23,7 +35,7 @@ static char		**alloc_tab(char const *s, char c)
 
 static char		**ft_strsplit_free(char **tab)
 {
-	int		tab_i;
+	int			tab_i;
 
 	tab_i = 0;
 	if (tab)
@@ -40,9 +52,9 @@ static char		**ft_strsplit_free(char **tab)
 
 char			**ft_strsplit(char const *s, char c)
 {
-	char	**tab;
-	size_t	tab_i;
-	size_t	i;
+	char		**tab;
+	size_t		tab_i;
+	size_t		i;
 
 	if (!s || !(tab = alloc_tab(s, c)))
 		return (NULL);

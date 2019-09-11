@@ -6,7 +6,7 @@
 /*   By: alngo <alngo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/02 15:26:37 by alngo             #+#    #+#             */
-/*   Updated: 2019/06/02 16:03:42 by alngo            ###   ########.fr       */
+/*   Updated: 2019/09/11 11:44:25 by alngo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,10 @@ char		*ft_strrchr(const char *s, int c);
 char		*ft_strstr(const char *s1, const char *s2);
 char		*ft_strsub(const char *s, size_t start, size_t n);
 char		*ft_strtrim(const char *s);
-int		ft_strcmp(const char *s1, const char *s2);
-int		ft_strequ(const char *s1, const char *s2);
-int		ft_strncmp(const char *s1, const char *s2, size_t n);
-int		ft_strnequ(const char *s1, const char *s2, size_t n);
+int			ft_strcmp(const char *s1, const char *s2);
+int			ft_strequ(const char *s1, const char *s2);
+int			ft_strncmp(const char *s1, const char *s2, size_t n);
+int			ft_strnequ(const char *s1, const char *s2, size_t n);
 size_t		ft_strlcat(char *s1, const char *s2, size_t n);
 size_t		ft_strlen(const char *s);
 size_t		ft_strnlen(const char *s, size_t n);
