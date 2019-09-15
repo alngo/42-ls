@@ -12,56 +12,59 @@ int					ft_printf(const char *fmt, ...)
 	return (ans);
 }
 
-unsigned int				get_flags(const char **fmt)
+unsigned char		get_flags(const char **fmt)
 {
-	static char				fchar[5];
-	static unsigned char	fbits[6];
-	const char				*t;
-	unsigned char			flags;
+	unsigned char	flags;
 
-	ft_strcpy((char *)fchar, " +-#0");
-	fbits[0] = FSP;
-	fbits[1] = FPL;
-	fbits[2] = FMI;
-	fbits[3] = FNO;
-	fbits[4] = FZE;
-	fbits[5] = 0;
 	flags = 0;
-	while ((t = ft_strchr(fchar, **fmt)) != NULL)
+	while (**fmt)
 	{
-		flags |= fbits[t - fchar];
+		if (**fmt == ' ')
+			flags |= FSP;
+		else if (**fmt == '+')
+			flags |= FPL;
+		else if (**fmt == '-')
+			flags |= FMI;
+		else if (**fmt == '#')
+			flags |= FNO;
+		else if (**fmt == '0')
+			flags |= FZE;
+		else
+			break;
 		(*fmt)++;
 	}
-	printf("flags: %d\n", (int)flags);
 	return (flags);
 }
 
-unsigned int				get_width(const char **fmt, va_list a)
+unsigned int		get_width(const char **fmt, unsigned char *flags, va_list va)
 {
-	unsigned int			width;
+	unsigned int	width;
+	int				w;
 
 	width = 0;
-	if (ft_isdigit(*fmt))
-      width = ft_atoi(*fmt);
-    else if (*fmt == '*') {
-      const int w = va_arg(va, int);
-      if (w < 0) {
-        flags |= FLAGS_LEFT;    // reverse padding
-        width = (unsigned int)-w;
-      }
-      else {
-        width = (unsigned int)w;
-      }
-      format++;
-    }
+	if (ft_isdigit(**fmt))
+		width = ft_atoi(*fmt);
+	else if (**fmt == '*') {
+		w = va_arg(va, int);
+		if (w < 0) {
+			*flags |= FMI;
+			width = (unsigned int)-w;
+		}
+		else
+			width = (unsigned int)w;
+		(*fmt)++;
+	}
+	return (width);
 }
+
+unsigned int		get_precision()
+
 
 int					xprintf(void (*pf)(char), const char *fmt, va_list ap)
 {
-	unsigned int	flags;
-	//unsigned int	width;
+	unsigned char	flags;
+	unsigned int	width;
 	//unsigned int	precision;
-	(void)ap;
 
 	while (*fmt)
 	{
@@ -69,8 +72,10 @@ int					xprintf(void (*pf)(char), const char *fmt, va_list ap)
 		{
 			fmt++;
 			flags = get_flags(&fmt);
-			width = get_width(&fmt, ap);
+			width = get_width(&fmt, &flags, ap);
 			printf("character after flags = %c\n", *fmt);
+			printf("flags: %d\n", flags);
+			printf("width: %d\n", width);
 		}
 		else
 		{
@@ -78,7 +83,6 @@ int					xprintf(void (*pf)(char), const char *fmt, va_list ap)
 			fmt++;
 
 		}
-
 	}
 	return (1);
 }
