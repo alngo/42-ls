@@ -16,6 +16,6 @@ int		main(int ac, char **av)
 {
 	(void)ac;
 	(void)av;
-	ft_printf("% +021Ccoucou", -21);
+	ft_printf("% +021.3hhCcoucou", -21);
 	return (1);
 }

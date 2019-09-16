@@ -12,135 +12,131 @@ int					ft_printf(const char *fmt, ...)
 	return (ans);
 }
 
-unsigned char		get_flags(const char **fmt)
+unsigned char		get_flags(const char **fmt, t_args *args)
 {
-	unsigned char	flags;
-
-	flags = 0;
+	args->flags = 0;
 	while (**fmt)
 	{
 		if (**fmt == ' ')
-			flags |= FSP;
+			args->flags |= FSP;
 		else if (**fmt == '+')
-			flags |= FPL;
+			args->flags |= FPL;
 		else if (**fmt == '-')
-			flags |= FMI;
+			args->flags |= FMI;
 		else if (**fmt == '#')
-			flags |= FNO;
+			args->flags |= FNO;
 		else if (**fmt == '0')
-			flags |= FZE;
+			args->flags |= FZE;
 		else
 			break;
 		(*fmt)++;
 	}
-	return (flags);
+	return (args->flags);
 }
 
-unsigned int		get_width(const char **fmt, unsigned char *flags, va_list va)
+unsigned int		get_width(const char **fmt, t_args *args, va_list va)
 {
-	unsigned int	width;
 	int				w;
 
-	width = 0;
+	args->width = 0;
 	if (ft_isdigit(**fmt))
 	{
-		width = ft_atoi(*fmt);
+		args->width = ft_atoi(*fmt);
 		while (ft_isdigit(**fmt))
 			(*fmt)++;
 	}
 	else if (**fmt == '*') {
 		w = va_arg(va, int);
 		if (w < 0) {
-			*flags |= FMI;
-			width = (unsigned int)-w;
+			args->flags |= FMI;
+			args->width = (unsigned int)-w;
 		}
 		else
-			width = (unsigned int)w;
+			args->width = (unsigned int)w;
 		(*fmt)++;
 	}
-	return (width);
+	return (args->width);
 }
 
-unsigned int		get_precision(const char **fmt, unsigned char *flags, va_list va)
+unsigned int		get_precision(const char **fmt, t_args *args, va_list va)
 {
-	unsigned int	precision;
 	int				prec;
 
-	precision = 0;
+	args->precision = 0;
 	if (**fmt == '.')
 	{
-		*flags |= FPR;
+		args->flags |= FPR;
 		(*fmt)++;
 	}
 	if (ft_isdigit(**fmt))
 	{
-		prec = ft_atoi(*fmt);
+		args->precision = ft_atoi(*fmt);
 		while (ft_isdigit(**fmt))
 			(*fmt)++;
 	}
 	else if (**fmt == '*') {
 		prec = va_arg(va, int);
-		precision = prec > 0 ? (unsigned int)prec : 0;
+		args->precision = prec > 0 ? (unsigned int)prec : 0;
 		(*fmt)++;
 	}
-	return (precision);
+	return (args->precision);
 }
 
-unsigned char		get_type(const char **fmt)
+unsigned char		get_type(const char **fmt, t_args *args)
 {
-	unsigned char	type;
-
+	args->type = 0;
 	if (**fmt == 'l')
 	{
-		type |= FL;
+		args->type |= FL;
 		if (*(*fmt)++ == 'l')
 		{
-			type |= FLL;
+			args->type |= FLL;
 			(*fmt)++;
 		}
 	}
 	else if (**fmt == 'h')
 	{
-		type |= FS;
+		args->type |= FS;
 		if (*(*fmt)++ == 'h')
 		{
-			type |= FC;
+			args->type |= FC;
 			(*fmt)++;
 		}
 	}
 	else if (**fmt == 'j')
 	{
-		type |= FTMAX;
+		args->type |= FTMAX;
 		(*fmt)++;
 	}
 	else if (**fmt == 'z')
 	{
-		type |= FTSIZ;
+		args->type |= FTSIZ;
 		(*fmt)++;
 	}
-	return (type)
+	return (args->type);
 }
 
+//diouxfcspXb%
 
 int					xprintf(void (*pf)(char), const char *fmt, va_list ap)
 {
-	unsigned char	flags;
-	unsigned char	type;
-	unsigned int	width;
-	unsigned int	precision;
+	t_args			args;
 
 	while (*fmt)
 	{
 		if (*fmt == '%')
 		{
 			fmt++;
-			flags = get_flags(&fmt);
-			width = get_width(&fmt, &flags, ap);
-			precision = get_precision(&fmt, &flags, ap);
+			get_flags(&fmt, &args);
+			get_width(&fmt, &args, ap);
+			get_precision(&fmt, &args, ap);
+			get_type(&fmt, &args);
+
 			printf("character after flags = %c\n", *fmt);
-			printf("flags: %d\n", flags);
-			printf("width: %d\n", width);
-			printf("precision: %d\n", precision);
+			printf("flags: %d\n", args.flags);
+			printf("width: %d\n", args.width);
+			printf("precision: %d\n", args.precision);
+			printf("type %d\n", args.type);
 		}
 		else
 		{

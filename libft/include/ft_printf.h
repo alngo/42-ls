@@ -23,6 +23,13 @@
 # define FTMAX	0x10
 # define FTSIZ	0x32
 
+typedef struct		s_args
+{
+	unsigned int	width;
+	unsigned int	precision;
+	unsigned char	flags;
+	unsigned char	type;
+}					t_args;
 
 int			ft_printf(const char *fmt, ...);
 int			xprintf(void (*pf)(char), const char *fmt, va_list ap);
