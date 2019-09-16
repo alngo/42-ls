@@ -43,7 +43,11 @@ unsigned int		get_width(const char **fmt, unsigned char *flags, va_list va)
 
 	width = 0;
 	if (ft_isdigit(**fmt))
+	{
 		width = ft_atoi(*fmt);
+		while (ft_isdigit(**fmt))
+			(*fmt)++;
+	}
 	else if (**fmt == '*') {
 		w = va_arg(va, int);
 		if (w < 0) {
@@ -57,14 +61,73 @@ unsigned int		get_width(const char **fmt, unsigned char *flags, va_list va)
 	return (width);
 }
 
-unsigned int		get_precision()
+unsigned int		get_precision(const char **fmt, unsigned char *flags, va_list va)
+{
+	unsigned int	precision;
+	int				prec;
+
+	precision = 0;
+	if (**fmt == '.')
+	{
+		*flags |= FPR;
+		(*fmt)++;
+	}
+	if (ft_isdigit(**fmt))
+	{
+		prec = ft_atoi(*fmt);
+		while (ft_isdigit(**fmt))
+			(*fmt)++;
+	}
+	else if (**fmt == '*') {
+		prec = va_arg(va, int);
+		precision = prec > 0 ? (unsigned int)prec : 0;
+		(*fmt)++;
+	}
+	return (precision);
+}
+
+unsigned char		get_type(const char **fmt)
+{
+	unsigned char	type;
+
+	if (**fmt == 'l')
+	{
+		type |= FL;
+		if (*(*fmt)++ == 'l')
+		{
+			type |= FLL;
+			(*fmt)++;
+		}
+	}
+	else if (**fmt == 'h')
+	{
+		type |= FS;
+		if (*(*fmt)++ == 'h')
+		{
+			type |= FC;
+			(*fmt)++;
+		}
+	}
+	else if (**fmt == 'j')
+	{
+		type |= FTMAX;
+		(*fmt)++;
+	}
+	else if (**fmt == 'z')
+	{
+		type |= FTSIZ;
+		(*fmt)++;
+	}
+	return (type)
+}
 
 
 int					xprintf(void (*pf)(char), const char *fmt, va_list ap)
 {
 	unsigned char	flags;
+	unsigned char	type;
 	unsigned int	width;
-	//unsigned int	precision;
+	unsigned int	precision;
 
 	while (*fmt)
 	{
@@ -73,9 +136,11 @@ int					xprintf(void (*pf)(char), const char *fmt, va_list ap)
 			fmt++;
 			flags = get_flags(&fmt);
 			width = get_width(&fmt, &flags, ap);
+			precision = get_precision(&fmt, &flags, ap);
 			printf("character after flags = %c\n", *fmt);
 			printf("flags: %d\n", flags);
 			printf("width: %d\n", width);
+			printf("precision: %d\n", precision);
 		}
 		else
 		{
