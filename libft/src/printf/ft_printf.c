@@ -4,11 +4,11 @@
 int					ft_printf(const char *fmt, ...)
 {
 	int				ans;
-	va_list			ap;
+	va_list			va;
 
-	va_start(ap, fmt);
-	ans = xprintf(&ft_putchar, fmt, ap);
-	va_end(ap);
+	va_start(va, fmt);
+	ans = xprintf(&ft_putchar, fmt, va);
+	va_end(va);
 	return (ans);
 }
 
@@ -118,25 +118,54 @@ unsigned short		get_type(const char **fmt, t_args *args)
 
 //diouxXcCsSpb%
 
-void				format((void (*outc)(char))const char **fmt, t_args *args)
+void				format_character(void (*outc)(char), const char **fmt, t_args *args, va_list va)
 {
-	if (**fmt == 'c' || **fmt === 'C')
-		//handle character
-	else if (**fmt == 's' || **fmt == 'S')
-		//handle string
-	else if (**fmt == 'b' || **fmt == 'o' || **fmt == 'd' || **fmt == 'D'
-			**fmt == 'i' || **fmt == 'u' || **fmt == 'x' || **fmt == 'X')
-		//handle num
-	else if (**fmt == 'p')
-		//hanlde pointer
-	else (**fmt == '%')
-		outc(**fmt)
-	else
-		outc(**fmt)
-	*(*fmt)++;
+	(void)outc;
+	(void)fmt;
+	(void)args;
+	(void)va;
+}
+void				format_string(void (*outc)(char), const char **fmt, t_args *args, va_list va)
+{
+	(void)outc;
+	(void)fmt;
+	(void)args;
+	(void)va;
+}
+void				format_integer(void (*outc)(char), const char **fmt, t_args *args, va_list va)
+{
+	(void)outc;
+	(void)fmt;
+	(void)args;
+	(void)va;
+}
+void				format_pointer(void (*outc)(char), const char **fmt, t_args *args, va_list va)
+{
+	(void)outc;
+	(void)fmt;
+	(void)args;
+	(void)va;
 }
 
-int					xprintf(void (*outc)(char), const char *fmt, va_list ap)
+void				formatter(void (*outc)(char), const char **fmt, t_args *args, va_list va)
+{
+	if (**fmt == 'c' || **fmt == 'C')
+		format_character(outc, fmt, args, va);
+	else if (**fmt == 's' || **fmt == 'S')
+		format_string(outc, fmt, args, va);
+	else if (**fmt == 'b' || **fmt == 'o' || **fmt == 'd' || **fmt == 'D' ||
+			**fmt == 'i' || **fmt == 'u' || **fmt == 'x' || **fmt == 'X')
+		format_integer(outc, fmt, args, va);
+	else if (**fmt == 'p')
+		format_pointer(outc, fmt, args, va);
+	else if (**fmt == '%')
+		outc(**fmt);
+	else
+		outc(**fmt);
+	(*fmt)++;
+}
+
+int					xprintf(void (*outc)(char), const char *fmt, va_list va)
 {
 	t_args			args;
 
@@ -146,10 +175,10 @@ int					xprintf(void (*outc)(char), const char *fmt, va_list ap)
 		{
 			fmt++;
 			get_flags(&fmt, &args);
-			get_width(&fmt, &args, ap);
-			get_precision(&fmt, &args, ap);
+			get_width(&fmt, &args, va);
+			get_precision(&fmt, &args, va);
 			get_type(&fmt, &args);
-			format(outc, &fmt, &args);
+			formatter(outc, &fmt, &args, va);
 
 			printf("character after flags = %c\n", *fmt);
 			printf("flags: %d\n", args.flags);
