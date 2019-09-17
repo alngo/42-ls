@@ -12,7 +12,7 @@ int					ft_printf(const char *fmt, ...)
 	return (ans);
 }
 
-unsigned char		get_flags(const char **fmt, t_args *args)
+unsigned short		get_flags(const char **fmt, t_args *args)
 {
 	args->flags = 0;
 	while (**fmt)
@@ -82,7 +82,7 @@ unsigned int		get_precision(const char **fmt, t_args *args, va_list va)
 	return (args->precision);
 }
 
-unsigned char		get_type(const char **fmt, t_args *args)
+unsigned short		get_type(const char **fmt, t_args *args)
 {
 	args->type = 0;
 	if (**fmt == 'l')
@@ -116,9 +116,27 @@ unsigned char		get_type(const char **fmt, t_args *args)
 	return (args->type);
 }
 
-//diouxfcspXb%
+//diouxXcCsSpb%
 
-int					xprintf(void (*pf)(char), const char *fmt, va_list ap)
+void				format((void (*outc)(char))const char **fmt, t_args *args)
+{
+	if (**fmt == 'c' || **fmt === 'C')
+		//handle character
+	else if (**fmt == 's' || **fmt == 'S')
+		//handle string
+	else if (**fmt == 'b' || **fmt == 'o' || **fmt == 'd' || **fmt == 'D'
+			**fmt == 'i' || **fmt == 'u' || **fmt == 'x' || **fmt == 'X')
+		//handle num
+	else if (**fmt == 'p')
+		//hanlde pointer
+	else (**fmt == '%')
+		outc(**fmt)
+	else
+		outc(**fmt)
+	*(*fmt)++;
+}
+
+int					xprintf(void (*outc)(char), const char *fmt, va_list ap)
 {
 	t_args			args;
 
@@ -131,6 +149,7 @@ int					xprintf(void (*pf)(char), const char *fmt, va_list ap)
 			get_width(&fmt, &args, ap);
 			get_precision(&fmt, &args, ap);
 			get_type(&fmt, &args);
+			format(outc, &fmt, &args);
 
 			printf("character after flags = %c\n", *fmt);
 			printf("flags: %d\n", args.flags);
@@ -140,7 +159,7 @@ int					xprintf(void (*pf)(char), const char *fmt, va_list ap)
 		}
 		else
 		{
-			pf(*fmt);
+			outc(*fmt);
 			fmt++;
 
 		}
