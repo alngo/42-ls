@@ -6,7 +6,7 @@
 /*   By: alngo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/18 11:56:31 by alngo             #+#    #+#             */
-/*   Updated: 2019/09/18 14:14:10 by alngo            ###   ########.fr       */
+/*   Updated: 2019/09/18 14:59:33 by alngo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,20 +163,21 @@ void				format_wide_character(wchar_t c, char *buf)
 	unsigned int	code;
 
 	code = 0;
-	code = code | (c & 63);
-	code = code | (((c >> 6) & 63) << 8);
-	code = code | (((c >> 12) & 63) << 16);
-	code = code | (((c >> 18) & 63) << 24);
+	code |= (c & 63);
+	code |= (((c >> 6) & 63) << 8);
+	code |= (((c >> 12) & 63) << 16);
+	code |= (((c >> 18) & 63) << 24);
 	if (c <= 0177)
-		code = code | ENCODE_07BITS;
-	else if (c <= 03777)
-		code = code | ENCODE_11BITS;
-	else if (c <= 0177777)
-		code = code | ENCODE_16BITS;
-	else if (c <= 04177777)
-		code = code | ENCODE_21BITS;
+		code |= ENCODE_07BITS;
+	else if (c < 03777)
+		code |= ENCODE_11BITS;
+	else if (c < 0177777)
+		code |= ENCODE_16BITS;
+	else if (c < 04177777)
+		code |= ENCODE_21BITS;
 	else
 		return;
+	printf("\n FINALE: %x", code);
 	ft_memcpy(buf, &code, 4);
 }
 
@@ -186,13 +187,12 @@ void				format_character(void (*outc)(char), const char **fmt, t_args *args, va_
 	unsigned int	len;
 	char			buf[5];
 
+
 	c = (wchar_t)va_arg(va, wchar_t);
 	len = 0;
 	ft_bzero(buf, 5);
-	if (**fmt == 'C' || args->type & FL) {
+	if (**fmt == 'C' || args->type & FL)
 		format_wide_character(c, buf);
-		printf("%s", buf);
-	}
 	else if (**fmt == 'c')
 		buf[0] = c ? (char)c : '\0';
 	outBuf(outc, buf, args, 0);
