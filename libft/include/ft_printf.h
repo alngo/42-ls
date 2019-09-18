@@ -38,11 +38,10 @@
 /*
 **	UNICODE
 */
-# define CODE_MASK_7		0x0
-# define CODE_MASK_11		0xC0
-# define CODE_MASK_16		0xE0
-# define CODE_MASK_21		0xF0
-# define CODE_MASK			0x80
+# define ENCODE_07BITS		0x0
+# define ENCODE_11BITS		0xC080
+# define ENCODE_16BITS		0xE08080
+# define ENCODE_21BITS		0xF0808080
 
 typedef struct		s_args
 {

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: alngo <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/09/18 11:56:31 by alngo             #+#    #+#             */
+/*   Updated: 2019/09/18 14:14:10 by alngo            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 #include "libft.h"
 
@@ -118,7 +130,7 @@ unsigned short		get_type(const char **fmt, t_args *args)
 	return (args->type);
 }
 
-void				pad((void (*outc)(char)), t_args *args)
+void				pad(void (*outc)(char), t_args *args)
 {
 	while (args->width)
 	{
@@ -127,42 +139,76 @@ void				pad((void (*outc)(char)), t_args *args)
 	}
 }
 
-void				outBuf((void (*outc)(char), const char *buf, t_args *args))
+void				outBuf(void (*outc)(char), const char *buf, t_args *args, uint8_t trim)
 {
-	int				buffsize;
+	size_t 			size;
 
-	buffsize = ft_strlen(buf);
-	args->width -= buffsize;
-	args->width = args->width < 0 ? 0 : args->width;
-	if (!args->flags & FMI)
+	size = ft_strlen(buf);
+	if (trim && args->precision)
+		size = size < args->precision ? size : args->precision;
+	args->width = args->width < size ? 0 : args->width - size;
+	if (!(args->flags & FMI))
 		pad(outc, args);
-	while (buf++)
+	while (size-- && *buf)
+	{
 		outc(*buf);
+		buf++;
+	}
 	if (args->flags & FMI)
 		pad(outc, args);
 }
 
-void				ft
+void				format_wide_character(wchar_t c, char *buf)
+{
+	unsigned int	code;
+
+	code = 0;
+	code = code | (c & 63);
+	code = code | (((c >> 6) & 63) << 8);
+	code = code | (((c >> 12) & 63) << 16);
+	code = code | (((c >> 18) & 63) << 24);
+	if (c <= 0177)
+		code = code | ENCODE_07BITS;
+	else if (c <= 03777)
+		code = code | ENCODE_11BITS;
+	else if (c <= 0177777)
+		code = code | ENCODE_16BITS;
+	else if (c <= 04177777)
+		code = code | ENCODE_21BITS;
+	else
+		return;
+	ft_memcpy(buf, &code, 4);
+}
 
 void				format_character(void (*outc)(char), const char **fmt, t_args *args, va_list va)
 {
 	wchar_t			c;
+	unsigned int	len;
+	char			buf[5];
 
-	c = va_arg(va, wchar_t);
-
-	if (**fmt == 'C' || args->type & FL)
-	{
+	c = (wchar_t)va_arg(va, wchar_t);
+	len = 0;
+	ft_bzero(buf, 5);
+	if (**fmt == 'C' || args->type & FL) {
+		format_wide_character(c, buf);
+		printf("%s", buf);
 	}
-	if (**fmt == 'c')
-		outBuf((char)c);
+	else if (**fmt == 'c')
+		buf[0] = c ? (char)c : '\0';
+	outBuf(outc, buf, args, 0);
 }
+
 void				format_string(void (*outc)(char), const char **fmt, t_args *args, va_list va)
 {
-	(void)outc;
-	(void)fmt;
-	(void)args;
-	(void)va;
+	const char 		*str;
+
+	str = va_arg(va, const char *);
+	if (**fmt == 'S' || args->type & FL)
+		write(1, "/", 1);
+	if (**fmt == 's')
+		outBuf(outc, str, args, 1);
 }
+
 void				format_integer(void (*outc)(char), const char **fmt, t_args *args, va_list va)
 {
 	(void)outc;
