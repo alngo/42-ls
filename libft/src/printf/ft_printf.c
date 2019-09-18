@@ -170,15 +170,17 @@ void				format_wide_character(wchar_t c, char *buf)
 	if (c <= 0177)
 		code |= ENCODE_07BITS;
 	else if (c < 03777)
-		code |= ENCODE_11BITS;
+		code |= (code | ENCODE_11BITS);
 	else if (c < 0177777)
 		code |= ENCODE_16BITS;
 	else if (c < 04177777)
 		code |= ENCODE_21BITS;
 	else
 		return;
-	printf("\n FINALE: %x", code);
+	printf("\n FINALE: %x\n", code);
+	printf("bits: [%x][%x][%x][%x]\n", buf[0], buf[1], buf[2], buf[3]);
 	ft_memcpy(buf, &code, 4);
+	printf("bits: [%x][%x][%x][%x]\n", buf[0], buf[1], buf[2], buf[3]);
 }
 
 void				format_character(void (*outc)(char), const char **fmt, t_args *args, va_list va)
