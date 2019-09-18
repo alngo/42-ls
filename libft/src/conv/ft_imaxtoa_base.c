@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_imaxtoa.c                                       :+:      :+:    :+:   */
+/*   ft_imaxtoa_base.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alngo <alngo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: alngo <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/11 11:48:54 by alngo             #+#    #+#             */
-/*   Updated: 2019/09/11 11:48:58 by alngo            ###   ########.fr       */
+/*   Created: 2019/09/18 11:37:55 by alngo             #+#    #+#             */
+/*   Updated: 2019/09/18 11:40:29 by alngo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libft.h>
 
-char	*ft_imaxtoa(intmax_t value)
+char	*ft_imaxtoa_base(intmax_t value, uint8_t base, const char *cipher)
 {
 	uintmax_t	i;
 	intmax_t	size;
@@ -20,14 +20,14 @@ char	*ft_imaxtoa(intmax_t value)
 
 	i = (value < 0) ? -value : value;
 	size = 1 + (value < 0);
-	while ((i /= 10))
+	while ((i /= base))
 		size++;
 	ret = (char *)malloc(sizeof(char) * (size + 1));
 	ret[size] = '\0';
 	i = (value < 0) ? -value : value;
-	ret[--size] = "0123456789"[i % 10];
-	while ((i /= 10))
-		ret[--size] = "0123456789"[i % 10];
+	ret[--size] = cipher[i % base];
+	while ((i /= base))
+		ret[--size] = cipher[i % base];
 	if (value < 0)
 		ret[--size] = '-';
 	return (ret);

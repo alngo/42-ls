@@ -85,8 +85,7 @@ SRC_NAME = 	assert/ft_assert.c\
 		conv/ft_stoul.c\
 		conv/ft_strtol.c\
 		conv/ft_strtoul.c\
-		conv/ft_uimaxtoa_base.c\
-		conv/ft_imaxtoa.c\
+		conv/ft_imaxtoa_base.c\
 		conv/ft_itoa.c\
 		\
 		lst/ft_lstadd.c\

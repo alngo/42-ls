@@ -6,7 +6,7 @@
 /*   By: alngo <alngo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/03 08:10:33 by alngo             #+#    #+#             */
-/*   Updated: 2019/06/03 08:11:08 by alngo            ###   ########.fr       */
+/*   Updated: 2019/09/18 11:41:39 by alngo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,5 @@
 
 char		*ft_itoa(int n)
 {
-	return (ft_imaxtoa(n));
+	return (ft_imaxtoa_base(n, 10, "0123456789abcdef"));
 }

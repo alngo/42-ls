@@ -88,7 +88,8 @@ unsigned short		get_type(const char **fmt, t_args *args)
 	if (**fmt == 'l')
 	{
 		args->type |= FL;
-		if (*(*fmt)++ == 'l')
+		(*fmt)++;
+		if (**fmt == 'l')
 		{
 			args->type |= FLL;
 			(*fmt)++;
@@ -97,7 +98,8 @@ unsigned short		get_type(const char **fmt, t_args *args)
 	else if (**fmt == 'h')
 	{
 		args->type |= FS;
-		if (*(*fmt)++ == 'h')
+		(*fmt)++;
+		if (**fmt == 'h')
 		{
 			args->type |= FC;
 			(*fmt)++;
@@ -116,14 +118,43 @@ unsigned short		get_type(const char **fmt, t_args *args)
 	return (args->type);
 }
 
-//diouxXcCsSpb%
+void				pad((void (*outc)(char)), t_args *args)
+{
+	while (args->width)
+	{
+		outc(args->flags & FZE ? '0' : ' ');
+		args->width--;
+	}
+}
+
+void				outBuf((void (*outc)(char), const char *buf, t_args *args))
+{
+	int				buffsize;
+
+	buffsize = ft_strlen(buf);
+	args->width -= buffsize;
+	args->width = args->width < 0 ? 0 : args->width;
+	if (!args->flags & FMI)
+		pad(outc, args);
+	while (buf++)
+		outc(*buf);
+	if (args->flags & FMI)
+		pad(outc, args);
+}
+
+void				ft
 
 void				format_character(void (*outc)(char), const char **fmt, t_args *args, va_list va)
 {
-	(void)outc;
-	(void)fmt;
-	(void)args;
-	(void)va;
+	wchar_t			c;
+
+	c = va_arg(va, wchar_t);
+
+	if (**fmt == 'C' || args->type & FL)
+	{
+	}
+	if (**fmt == 'c')
+		outBuf((char)c);
 }
 void				format_string(void (*outc)(char), const char **fmt, t_args *args, va_list va)
 {
@@ -179,12 +210,6 @@ int					xprintf(void (*outc)(char), const char *fmt, va_list va)
 			get_precision(&fmt, &args, va);
 			get_type(&fmt, &args);
 			formatter(outc, &fmt, &args, va);
-
-			printf("character after flags = %c\n", *fmt);
-			printf("flags: %d\n", args.flags);
-			printf("width: %d\n", args.width);
-			printf("precision: %d\n", args.precision);
-			printf("type %d\n", args.type);
 		}
 		else
 		{
