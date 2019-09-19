@@ -160,7 +160,7 @@ void				outBuf(void (*outc)(char), const char *buf, t_args *args, uint8_t trim)
 
 void				format_wide_character(wchar_t c, char *buf)
 {
-	unsigned int	code;
+	wchar_t			code;
 
 	code = 0;
 	code |= (c & 63);
@@ -177,10 +177,8 @@ void				format_wide_character(wchar_t c, char *buf)
 		code |= ENCODE_21BITS;
 	else
 		return;
-	printf("\n FINALE: %x\n", code);
-	printf("bits: [%x][%x][%x][%x]\n", buf[0], buf[1], buf[2], buf[3]);
+	printf("code: %x\n", code);
 	ft_memcpy(buf, &code, 4);
-	printf("bits: [%x][%x][%x][%x]\n", buf[0], buf[1], buf[2], buf[3]);
 }
 
 void				format_character(void (*outc)(char), const char **fmt, t_args *args, va_list va)
@@ -263,7 +261,6 @@ int					xprintf(void (*outc)(char), const char *fmt, va_list va)
 		{
 			outc(*fmt);
 			fmt++;
-
 		}
 	}
 	return (1);

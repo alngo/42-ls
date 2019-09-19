@@ -11,7 +11,7 @@
 # define FMI 				0x04
 # define FNO 				0x08
 # define FZE 				0x10
-# define FPR 				0x32
+# define FPR 				0x20
 
 /*
 **	Types
