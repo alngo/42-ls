@@ -161,24 +161,29 @@ void				outBuf(void (*outc)(char), const char *buf, t_args *args, uint8_t trim)
 void				format_wide_character(wchar_t c, char *buf)
 {
 	wchar_t			code;
+	char			tmp[5];
 
 	code = 0;
+	ft_bzero(buf, 5);
 	code |= (c & 63);
 	code |= (((c >> 6) & 63) << 8);
 	code |= (((c >> 12) & 63) << 16);
 	code |= (((c >> 18) & 63) << 24);
 	if (c <= 0177)
-		code |= ENCODE_07BITS;
+		code = (code | ENCODE_07BITS) << 24;
 	else if (c < 03777)
-		code |= ENCODE_11BITS;
+		code = (code | ENCODE_11BITS) << 16;
 	else if (c < 0177777)
-		code |= ENCODE_16BITS;
+		code = (code | ENCODE_16BITS) << 8;
 	else if (c < 04177777)
 		code |= ENCODE_21BITS;
 	else
 		return;
-	ft_memcpy(buf, &code, 4);
-	printf("\n[%x][%x][%x][%x] : %x =>", buf[0], buf[1], buf[2], buf[3], code);
+	ft_memcpy(tmp, &code, 4);
+	buf[0] = tmp[3];
+	buf[1] = tmp[2];
+	buf[2] = tmp[1];
+	buf[3] = tmp[0];
 }
 
 void				format_character(void (*outc)(char), const char **fmt, t_args *args, va_list va)
