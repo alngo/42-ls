@@ -269,11 +269,15 @@ void				format_integer(void (*outc)(char), const char **fmt, t_args *args, va_li
 }
 void				format_pointer(void (*outc)(char), const char **fmt, t_args *args, va_list va)
 {
+	unsigned long	value;
+	char			*tmp;
 
-	(void)outc;
-	(void)fmt;
-	(void)args;
-	(void)va;
+	value = (unsigned long)va_arg(va, unsigned long);
+	args->flags |= FNO;
+	tmp = ft_imaxtoa_base((unsigned long)value, 16, "0123456789abcdef");
+	format_out(outc, tmp, args, **fmt);
+	if (tmp)
+		free(tmp);
 }
 
 void				formatter(void (*outc)(char), const char **fmt, t_args *args, va_list va)
