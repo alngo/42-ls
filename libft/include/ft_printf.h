@@ -49,6 +49,7 @@ typedef struct		s_args
 	unsigned int	precision;
 	unsigned short	flags;
 	unsigned short	type;
+	char			conversion;
 }					t_args;
 
 int			ft_printf(const char *fmt, ...);

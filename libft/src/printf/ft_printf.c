@@ -144,7 +144,7 @@ void				outBuf(void (*outc)(char), const char *buf, t_args *args, uint8_t trim)
 	size_t 			size;
 
 	size = ft_strlen(buf);
-	if (trim && args->precision)
+	if (args->conversion === 's' && args->precision)
 		size = size < args->precision ? size : args->precision;
 	args->width = args->width < size ? 0 : args->width - size;
 	if (!(args->flags & FMI))
@@ -190,26 +190,27 @@ void				format_character(void (*outc)(char), const char **fmt, t_args *args, va_
 	unsigned int	len;
 	char			buf[5];
 
-
-	c = (wchar_t)va_arg(va, wchar_t);
 	len = 0;
+	args->conversion = **fmt;
+	c = (wchar_t)va_arg(va, wchar_t);
 	ft_bzero(buf, 5);
 	if (**fmt == 'C' || args->type & FL)
 		format_wide_character(c, buf);
 	else if (**fmt == 'c')
 		buf[0] = c ? (char)c : '\0';
-	outBuf(outc, buf, args, 0);
+	outBuf(outc, buf, args);
 }
 
 void				format_string(void (*outc)(char), const char **fmt, t_args *args, va_list va)
 {
 	const char 		*str;
 
+	args->conversion = **fmt;
 	str = va_arg(va, const char *);
 	if (**fmt == 'S' || args->type & FL)
-		outBuf(outc, str, args, 1);
+		outBuf(outc, str, args);
 	if (**fmt == 's')
-		outBuf(outc, str, args, 1);
+		outBuf(outc, str, args);
 }
 
 void				format_integer(void (*outc)(char), const char **fmt, t_args *args, va_list va)
@@ -218,6 +219,7 @@ void				format_integer(void (*outc)(char), const char **fmt, t_args *args, va_li
 	intmax_t		value;
 	char			*tmp;
 
+	args->conversion = **fmt;
 	value = (intmax_t)va_arg(va, intmax_t);
 	if (**fmt == 'b')
 		base = 2;
@@ -228,9 +230,7 @@ void				format_integer(void (*outc)(char), const char **fmt, t_args *args, va_li
 	else
 		base = 10;
 	tmp = ft_imaxtoa_base(value, base, "0123456789abcdef");
-	if (**fmt == 'X')
-		ft_striter(tmp, &ft_toupper);
-	outBuf(outc, tmp, args, 1);
+	outBuf(outc, tmp, args);
 }
 void				format_pointer(void (*outc)(char), const char **fmt, t_args *args, va_list va)
 {
