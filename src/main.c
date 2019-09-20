@@ -31,6 +31,7 @@ int		main(int ac, char **av)
 	ft_printf("%#o\n", 10);
 	ft_printf("%#.10X\n", 10);
 	ft_printf("%#.10o\n", 10);
+	ft_printf("%p\n", &ac);
 
 	ft_printf("\n----------------------------------------\n");
 
@@ -49,5 +50,6 @@ int		main(int ac, char **av)
 	printf("%#o\n", 10);
 	printf("%#.10X\n", 10);
 	printf("%#.10o\n", 10);
+	printf("%p\n", &ac);
 	return (1);
 }

@@ -154,6 +154,11 @@ void				format_out(void (*outc)(char), const char *buf, t_args *args, char c)
 
 	size = ft_strlen(buf);
 
+	if (!buf) {
+		outc(c);
+		return ;
+	}
+
 	if (c == 's' && args->precision)
 		size = size < args->precision ? size : args->precision;
 
@@ -250,7 +255,7 @@ void				format_integer(void (*outc)(char), const char **fmt, t_args *args, va_li
 		base = 2;
 	else if (**fmt == 'o')
 		base = 8;
-	else if (**fmt == 'x' || **fmt == 'X' || **fmt == 'p')
+	else if (**fmt == 'x' || **fmt == 'X')
 		base = 16;
 	else
 		base = 10;
@@ -258,12 +263,13 @@ void				format_integer(void (*outc)(char), const char **fmt, t_args *args, va_li
 		tmp = ft_imaxtoa_base((int)value, base, "0123456789abcdef");
 	else
 		tmp = ft_imaxtoa_base((unsigned int)value, base, "0123456789abcdef");
-	if (**fmt == 'p')
-		args->flags |= FNO;
 	format_out(outc, tmp, args, **fmt);
+	if (tmp)
+		free(tmp);
 }
 void				format_pointer(void (*outc)(char), const char **fmt, t_args *args, va_list va)
 {
+
 	(void)outc;
 	(void)fmt;
 	(void)args;
@@ -280,7 +286,7 @@ void				formatter(void (*outc)(char), const char **fmt, t_args *args, va_list va
 			**fmt == 'i' || **fmt == 'u' || **fmt == 'x' || **fmt == 'X')
 		format_integer(outc, fmt, args, va);
 	else if (**fmt == 'p')
-		format_integer(outc, fmt, args, va);
+		format_pointer(outc, fmt, args, va);
 	else if (**fmt == '%')
 		outc(**fmt);
 	else

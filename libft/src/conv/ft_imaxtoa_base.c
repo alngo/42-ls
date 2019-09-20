@@ -22,7 +22,8 @@ char	*ft_imaxtoa_base(intmax_t value, uint8_t base, const char *cipher)
 	size = 1 + (value < 0);
 	while ((i /= base))
 		size++;
-	ret = (char *)malloc(sizeof(char) * (size + 1));
+	if (!(ret = (char *)malloc(sizeof(char) * (size + 1))))
+		return (NULL);
 	ret[size] = '\0';
 	i = (value < 0) ? -value : value;
 	ret[--size] = cipher[i % base];
