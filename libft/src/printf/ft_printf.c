@@ -161,7 +161,6 @@ void				outBuf(void (*outc)(char), const char *buf, t_args *args, uint8_t trim)
 void				format_wide_character(wchar_t c, char *buf)
 {
 	wchar_t			code;
-	char			tmp[5];
 
 	code = 0;
 	ft_bzero(buf, 5);
@@ -179,11 +178,10 @@ void				format_wide_character(wchar_t c, char *buf)
 		code |= ENCODE_21BITS;
 	else
 		return;
-	ft_memcpy(tmp, &code, 4);
-	buf[0] = tmp[3];
-	buf[1] = tmp[2];
-	buf[2] = tmp[1];
-	buf[3] = tmp[0];
+	buf[0] = ((char *)&code)[3];
+	buf[1] = ((char *)&code)[2];
+	buf[2] = ((char *)&code)[1];
+	buf[3] = ((char *)&code)[0];
 }
 
 void				format_character(void (*outc)(char), const char **fmt, t_args *args, va_list va)
@@ -209,7 +207,7 @@ void				format_string(void (*outc)(char), const char **fmt, t_args *args, va_lis
 
 	str = va_arg(va, const char *);
 	if (**fmt == 'S' || args->type & FL)
-		write(1, "/", 1);
+		outBuf(outc, str, args, 1);
 	if (**fmt == 's')
 		outBuf(outc, str, args, 1);
 }
