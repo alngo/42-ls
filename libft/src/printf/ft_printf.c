@@ -130,32 +130,60 @@ unsigned short		get_type(const char **fmt, t_args *args)
 	return (args->type);
 }
 
-void				pad(void (*outc)(char), t_args *args)
+void				pad(void (*outc)(char), size_t len, char c)
 {
-	while (args->width)
+	while (len)
 	{
-		outc(args->flags & FZE ? '0' : ' ');
-		args->width--;
+		outc(c);
+		len--;
 	}
 }
 
-void				outBuf(void (*outc)(char), const char *buf, t_args *args, uint8_t trim)
+void				buffer_out(void (*outc)(char), const char *buf, size_t size)
 {
-	size_t 			size;
-
-	size = ft_strlen(buf);
-	if (args->conversion === 's' && args->precision)
-		size = size < args->precision ? size : args->precision;
-	args->width = args->width < size ? 0 : args->width - size;
-	if (!(args->flags & FMI))
-		pad(outc, args);
 	while (size-- && *buf)
 	{
 		outc(*buf);
 		buf++;
 	}
+}
+
+void				format_out(void (*outc)(char), const char *buf, t_args *args, char c)
+{
+	size_t 			size;
+
+	size = ft_strlen(buf);
+
+	if (c == 's' && args->precision)
+		size = size < args->precision ? size : args->precision;
+
+	args->width -= size;
+	args->precision -= size;
+
+	if (args->flags & FNO && !args->precision && buf[0] != '0' && c == 'o' )
+		args->width -= 1;
+	if (args->flags & FNO && buf[0] != '0' && (c == 'x' || c == 'X'))
+		args->width -= 2;
+
+	args->width = (int)args->width < 0 ? 0 : args->width;
+	args->precision = (int)args->precision < 0 ? 0 : args->precision;
+
+  	if (!(args->flags & FMI))
+  		pad(outc, args->width, args->flags & FZE ? '0' : ' ');
+
+  	if (args->flags & FNO && !args->precision && buf[0] != '0' && c == 'o' )
+  		buffer_out(outc, "0", 1);
+  	if (args->flags & FNO && buf[0] != '0' && (c == 'x' || c == 'X' || c == 'p'))
+  		buffer_out(outc, c == 'X' ? "0X" : "0x", 2);
+
+  	if (c == 'X')
+  		ft_striter((char *)buf, &ft_toupper);
+
+	pad(outc, args->precision, '0');
+	buffer_out(outc, buf, size);
+
 	if (args->flags & FMI)
-		pad(outc, args);
+		pad(outc, args->width, args->flags & FZE ? '0' : ' ');
 }
 
 void				format_wide_character(wchar_t c, char *buf)
@@ -191,26 +219,24 @@ void				format_character(void (*outc)(char), const char **fmt, t_args *args, va_
 	char			buf[5];
 
 	len = 0;
-	args->conversion = **fmt;
 	c = (wchar_t)va_arg(va, wchar_t);
 	ft_bzero(buf, 5);
 	if (**fmt == 'C' || args->type & FL)
 		format_wide_character(c, buf);
 	else if (**fmt == 'c')
-		buf[0] = c ? (char)c : '\0';
-	outBuf(outc, buf, args);
+		buf[0] = c ? (unsigned char)c : '\0';
+	format_out(outc, buf, args, **fmt);
 }
 
 void				format_string(void (*outc)(char), const char **fmt, t_args *args, va_list va)
 {
 	const char 		*str;
 
-	args->conversion = **fmt;
 	str = va_arg(va, const char *);
 	if (**fmt == 'S' || args->type & FL)
-		outBuf(outc, str, args);
+		format_out(outc, str, args, **fmt);
 	if (**fmt == 's')
-		outBuf(outc, str, args);
+		format_out(outc, str, args, **fmt);
 }
 
 void				format_integer(void (*outc)(char), const char **fmt, t_args *args, va_list va)
@@ -219,18 +245,22 @@ void				format_integer(void (*outc)(char), const char **fmt, t_args *args, va_li
 	intmax_t		value;
 	char			*tmp;
 
-	args->conversion = **fmt;
 	value = (intmax_t)va_arg(va, intmax_t);
 	if (**fmt == 'b')
 		base = 2;
 	else if (**fmt == 'o')
 		base = 8;
-	else if (**fmt == 'x' || **fmt == 'X')
+	else if (**fmt == 'x' || **fmt == 'X' || **fmt == 'p')
 		base = 16;
 	else
 		base = 10;
-	tmp = ft_imaxtoa_base(value, base, "0123456789abcdef");
-	outBuf(outc, tmp, args);
+	if (**fmt == 'd' || **fmt == 'i')
+		tmp = ft_imaxtoa_base((int)value, base, "0123456789abcdef");
+	else
+		tmp = ft_imaxtoa_base((unsigned int)value, base, "0123456789abcdef");
+	if (**fmt == 'p')
+		args->flags |= FNO;
+	format_out(outc, tmp, args, **fmt);
 }
 void				format_pointer(void (*outc)(char), const char **fmt, t_args *args, va_list va)
 {
@@ -250,7 +280,7 @@ void				formatter(void (*outc)(char), const char **fmt, t_args *args, va_list va
 			**fmt == 'i' || **fmt == 'u' || **fmt == 'x' || **fmt == 'X')
 		format_integer(outc, fmt, args, va);
 	else if (**fmt == 'p')
-		format_pointer(outc, fmt, args, va);
+		format_integer(outc, fmt, args, va);
 	else if (**fmt == '%')
 		outc(**fmt);
 	else
