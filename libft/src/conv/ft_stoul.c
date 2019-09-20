@@ -23,12 +23,12 @@ static int			ft_stoul_base(int *base, const char **sc,
 	}
 	else if (*base)
 	{
-		if (*base == 16 && **sc == '0' && ft_tolower(*sc[1]) == 'x')
+		if (*base == 16 && **sc == '0' && ft_lower(*sc[1]) == 'x')
 			*sc = *sc + 2;
 	}
 	else if (**sc != '0')
 		*base = 10;
-	else if (ft_tolower(*sc[1]) == 'x')
+	else if (ft_lower(*sc[1]) == 'x')
 	{
 		*base = 16;
 		*sc = *sc + 2;
@@ -47,7 +47,7 @@ static void			ft_xstoul(t_stoul *px, int base)
 	while (*(px->sc) == '0')
 		(px->sc)++;
 	px->x = 0;
-	while ((px->sd = ft_memchr(px->digits, ft_tolower(*(px->sc)), base)))
+	while ((px->sd = ft_memchr(px->digits, ft_lower(*(px->sc)), base)))
 	{
 		px->x = (px->x * base + ((px->sd) - (px->digits)));
 		(px->sc)++;

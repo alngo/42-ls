@@ -39,8 +39,10 @@ int		ft_ispunct(int c);
 int		ft_isspace(int c);
 int		ft_isupper(int c);
 int		ft_isxdigit(int c);
-int		ft_tolower(int c);
-int		ft_toupper(int c);
 int		ft_isascii(int c);
+int		ft_lower(int c);
+int		ft_upper(int c);
+void	ft_tolower(char *c);
+void	ft_toupper(char *c);
 
 #endif

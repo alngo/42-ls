@@ -13,9 +13,8 @@
 #include "libft.h"
 #include "ft_type.h"
 
-int		ft_tolower(int c)
+void		ft_tolower(char *c)
 {
-	if (ft_isupper(c))
-		return (c + 32);
-	return (c);
+	if (ft_isupper(*c))
+		*c = *c + 32;
 }

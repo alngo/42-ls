@@ -20,7 +20,11 @@ int		main(int ac, char **av)
 	ft_printf("%C - %C - %C - %C - %C\n", 044, 0242, 004471, 020254, 0201510);
 	ft_printf("%s\n", "coucou");
 	ft_printf("%10.3s\n", "coucou");
-	ft_printf("%S", "指事字");
-	ft_printf("%ls", "指事字");
+	ft_printf("%S\n", "指事字");
+	ft_printf("%ls\n", "指事字");
+	ft_printf("%d\n", 10);
+	ft_printf("%o\n", 10);
+	ft_printf("%x\n", 10);
+	ft_printf("%X\n", 10);
 	return (1);
 }

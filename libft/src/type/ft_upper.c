@@ -1,20 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_toupper.c                                       :+:      :+:    :+:   */
+/*   ft_tolower.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alngo <alngo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/11 16:50:42 by alngo             #+#    #+#             */
-/*   Updated: 2019/06/01 12:59:30 by alngo            ###   ########.fr       */
+/*   Updated: 2019/06/01 12:59:43 by alngo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "ft_type.h"
 
-void		ft_toupper(char *c)
+int		ft_upper(int c)
 {
-	if (ft_islower(*c))
-		*c = *c - 32;
+	if (ft_islower(c))
+		return (c - 32);
+	return (c);
 }

@@ -28,9 +28,11 @@ SRC_NAME = 	assert/ft_assert.c\
 		type/ft_isspace.c\
 		type/ft_isupper.c\
 		type/ft_isxdigit.c\
+		type/ft_isascii.c\
+		type/ft_lower.c\
+		type/ft_upper.c\
 		type/ft_tolower.c\
 		type/ft_toupper.c\
-		type/ft_isascii.c\
 		\
 		str/ft_strlen.c\
 		str/ft_strnlen.c\
