@@ -99,11 +99,11 @@ unsigned short		get_type(const char **fmt, t_args *args)
 	args->type = 0;
 	if (**fmt == 'l')
 	{
-		args->type |= FL;
+		args->type |= TL;
 		(*fmt)++;
 		if (**fmt == 'l')
 		{
-			args->type |= FLL;
+			args->type |= TL;
 			(*fmt)++;
 		}
 	}
@@ -226,7 +226,7 @@ void				format_character(void (*outc)(char), const char **fmt, t_args *args, va_
 	len = 0;
 	c = (wchar_t)va_arg(va, wchar_t);
 	ft_bzero(buf, 5);
-	if (**fmt == 'C' || args->type & FL)
+	if (**fmt == 'C' || args->type & TL)
 		format_wide_character(c, buf);
 	else if (**fmt == 'c')
 		buf[0] = c ? (unsigned char)c : '\0';
@@ -238,10 +238,20 @@ void				format_string(void (*outc)(char), const char **fmt, t_args *args, va_lis
 	const char 		*str;
 
 	str = va_arg(va, const char *);
-	if (**fmt == 'S' || args->type & FL)
+	if (**fmt == 'S' || args->type & TL)
 		format_out(outc, str, args, **fmt);
 	if (**fmt == 's')
 		format_out(outc, str, args, **fmt);
+}
+
+void				format_by_type(intmax_t *value, t_args args, char c)
+{
+	(void)args->type;
+	if (c == 'd' || c == 'i')
+	{
+		if (args->type)
+	}
+
 }
 
 void				format_integer(void (*outc)(char), const char **fmt, t_args *args, va_list va)
@@ -259,10 +269,8 @@ void				format_integer(void (*outc)(char), const char **fmt, t_args *args, va_li
 		base = 16;
 	else
 		base = 10;
-	if (**fmt == 'd' || **fmt == 'i')
-		tmp = ft_imaxtoa_base((int)value, base, "0123456789abcdef");
-	else
-		tmp = ft_imaxtoa_base((unsigned int)value, base, "0123456789abcdef");
+	format_by_type(&value, args, **fmt);
+	tmp = ft_imaxtoa_base(value, base, "0123456789abcdef");
 	format_out(outc, tmp, args, **fmt);
 	if (tmp)
 		free(tmp);
