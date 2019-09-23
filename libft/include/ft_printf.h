@@ -19,10 +19,10 @@
 */
 # define TL					0x01
 # define TLL				0x02
-# define TS					0x04
-# define TC					0x08
-# define TTMAX				0x10
-# define TTSIZ				0x32
+# define TH					0x04
+# define THH				0x08
+# define TJ					0x10
+# define TZ					0x32
 
 /*
 **	Colors
