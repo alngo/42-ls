@@ -2,8 +2,18 @@
 
 void                           format_type(intmax_t *value, t_args *args, uint8_t di)
 {
-	if (args->type)
-
+	if (args->type & TZ)
+		*value = (size_t)*value;
+	else if (args->type & TJ)
+		*value = di ? (intmax_t)*value : (uintmax_t)*value;
+	else if (args->type & TLL)
+		*value = di ? (long long)*value : (unsigned long long)*value;
+	else if (args->type & TL)
+		*value = di ? (long)*value : (unsigned long)*value;
+	else if (args->type & THH)
+		*value = di ? (short)*value : (unsigned short)*value;
+	else if (args->type & TH)
+		*value = di ? (signed char)*value : (unsigned char)*value;
 }
 
 void                           format_integer(void (*outc)(char), const char **fmt, t_args *args, va_list va)
