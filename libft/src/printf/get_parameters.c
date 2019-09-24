@@ -1,7 +1,7 @@
 #include "ft_printf.h"
 #include "libft.h"
 
-unsigned short		get_flags(const char **fmt, t_args *args)
+void		get_flags(const char **fmt, t_args *args)
 {
 	args->flags = 0;
 	while (**fmt)
@@ -20,10 +20,9 @@ unsigned short		get_flags(const char **fmt, t_args *args)
 			break;
 		(*fmt)++;
 	}
-	return (args->flags);
 }
 
-unsigned int		get_width(const char **fmt, t_args *args, va_list va)
+void		get_width(const char **fmt, t_args *args, va_list va)
 {
 	int				w;
 
@@ -44,10 +43,9 @@ unsigned int		get_width(const char **fmt, t_args *args, va_list va)
 			args->width = (unsigned int)w;
 		(*fmt)++;
 	}
-	return (args->width);
 }
 
-unsigned int		get_precision(const char **fmt, t_args *args, va_list va)
+void		get_precision(const char **fmt, t_args *args, va_list va)
 {
 	int				prec;
 
@@ -68,41 +66,26 @@ unsigned int		get_precision(const char **fmt, t_args *args, va_list va)
 		args->precision = prec > 0 ? (unsigned int)prec : 0;
 		(*fmt)++;
 	}
-	return (args->precision);
 }
 
-unsigned short		get_type(const char **fmt, t_args *args)
+void		get_type(const char **fmt, t_args *args)
 {
 	args->type = 0;
-	if (**fmt == 'l')
+	if (**fmt == 'l' || **fmt == 'h')
 	{
-		args->type |= TL;
+		args->type |= **fmt == 'l' ? TL : TH;
 		(*fmt)++;
-		if (**fmt == 'l')
+		if (**fmt == 'l' || **fmt == 'h')
 		{
-			args->type |= TL;
+			args->type |= **fmt == 'l' ? TLL : THH;
 			(*fmt)++;
 		}
 	}
-	else if (**fmt == 'h')
+	else if (**fmt == 'j' || **fmt == 'z')
 	{
-		args->type |= TH;
-		(*fmt)++;
-		if (**fmt == 'h')
-		{
-			args->type |= THH;
-			(*fmt)++;
-		}
-	}
-	else if (**fmt == 'j')
-	{
-		args->type |= TJ;
+		args->type |= **fmt == 'j' ? TJ : TZ;
 		(*fmt)++;
 	}
-	else if (**fmt == 'z')
-	{
-		args->type |= TZ;
-		(*fmt)++;
-	}
-	return (args->type);
 }
+
+

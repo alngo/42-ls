@@ -24,7 +24,8 @@ int					ft_printf(const char *fmt, ...)
 	return (ans);
 }
 
-int					xprintf(void (*outc)(char), const char *fmt, va_list va)
+int					xprintf(void (*outc)(char), const char *fmt,\
+		va_list va)
 {
 	t_args			args;
 
@@ -48,7 +49,8 @@ int					xprintf(void (*outc)(char), const char *fmt, va_list va)
 	return (1);
 }
 
-void				formatter(void (*outc)(char), const char **fmt, t_args *args, va_list va)
+void				formatter(void (*outc)(char), const char **fmt,\
+		t_args *args, va_list va)
 {
 	if (**fmt == 'c' || **fmt == 'C')
 		format_character(outc, fmt, args, va);

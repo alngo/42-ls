@@ -54,17 +54,27 @@ typedef struct			s_args
 
 int						ft_printf(const char *fmt, ...);
 int						xprintf(void (*pf)(char), const char *fmt, va_list ap);
-void					formatter(void (*outc)(char), const char **fmt, t_args *args, va_list va);
-unsigned short			get_flags(const char **fmt, t_args *args);
-unsigned short			get_type(const char **fmt, t_args *args);
-unsigned int			get_width(const char **fmt, t_args *args, va_list va);
-unsigned int			get_precision(const char **fmt, t_args *args, va_list va);
-void					format_character(void (*outc)(char), const char **fmt, t_args *args, va_list va);
-void					format_pointer(void (*outc)(char), const char **fmt, t_args *args, va_list va);
-void					format_string(void (*outc)(char), const char **fmt, t_args *args, va_list va);
-void                	format_integer(void (*outc)(char), const char **fmt, t_args *args, va_list va);
+void					formatter(void (*outc)(char), const char **fmt,\
+		t_args *args, va_list va);
+
+void					get_flags(const char **fmt, t_args *args);
+void					get_type(const char **fmt, t_args *args);
+void					get_width(const char **fmt, t_args *args, va_list va);
+void					get_precision(const char **fmt, t_args *args, va_list va);
+
+void					format_character(void (*outc)(char),\
+		const char **fmt, t_args *args, va_list va);
+void					format_pointer(void (*outc)(char),\
+		const char **fmt, t_args *args, va_list va);
+void					format_string(void (*outc)(char),\
+		const char **fmt, t_args *args, va_list va);
+void                	format_integer(void (*outc)(char),\
+		const char **fmt, t_args *args, va_list va);
+
 void					pad(void (*outc)(char), size_t len, char c);
-void					buffer_out(void (*outc)(char), const char *buf, size_t size);
-void					format_out(void (*outc)(char), const char *buf, t_args *args, char c);
+void					buffer_out(void (*outc)(char),\
+		const char *buf, size_t size);
+void					format_out(void (*outc)(char),\
+		const char *buf, t_args *args, char c);
 
 #endif
