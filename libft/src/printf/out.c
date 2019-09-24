@@ -1,4 +1,5 @@
 #include "ft_printf.h"
+#include "libft.h"
 
 void				pad(void (*outc)(char), size_t len, char c)
 {

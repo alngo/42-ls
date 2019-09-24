@@ -1,3 +1,6 @@
+#include "ft_printf.h"
+#include "libft.h"
+
 void				format_wide_character(wchar_t c, char *buf)
 {
 	wchar_t			code;

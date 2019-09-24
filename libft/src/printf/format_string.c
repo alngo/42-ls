@@ -1,3 +1,6 @@
+#include "ft_printf.h"
+#include "libft.h"
+
 void				format_string(void (*outc)(char), const char **fmt, t_args *args, va_list va)
 {
 	const char 		*str;

@@ -104,7 +104,13 @@ SRC_NAME = 	assert/ft_assert.c\
 		\
 		gnl/ft_gnl.c\
 		\
-		printf/ft_printf.c
+		printf/format_character.c\
+		printf/format_integer.c\
+		printf/format_pointer.c\
+		printf/format_string.c\
+		printf/ft_printf.c\
+		printf/get_parameters.c\
+		printf/out.c
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
 OBJ_PATH = obj

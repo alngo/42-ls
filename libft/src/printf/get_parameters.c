@@ -1,4 +1,5 @@
 #include "ft_printf.h"
+#include "libft.h"
 
 unsigned short		get_flags(const char **fmt, t_args *args)
 {
