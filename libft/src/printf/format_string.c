@@ -8,4 +8,3 @@ void				format_string(void (*outc)(char), const char **fmt, t_args *args, va_lis
 	if (**fmt == 's')
 		format_out(outc, str, args, **fmt);
 }
-
