@@ -34,6 +34,8 @@
 # define MAGENTA		"\033[0;35m"
 # define CYAN			"\033[0;36m"
 # define NOCOLOR		"\033[0m"
+# define COLOR_LENGTH	10
+# define NOCOLOR_LENGTH	7
 
 /*
 **	UNICODE
@@ -53,14 +55,13 @@ typedef struct			s_args
 
 int						ft_printf(const char *fmt, ...);
 int						xprintf(void (*pf)(char), const char *fmt, va_list ap);
-void					formatter(void (*outc)(char), const char **fmt,\
-		t_args *args, va_list va);
 
 void					get_flags(const char **fmt, t_args *args);
 void					get_type(const char **fmt, t_args *args);
 void					get_width(const char **fmt, t_args *args, va_list va);
 void					get_precision(const char **fmt, t_args *args, va_list va);
 
+void					format_color(void (*outc)(char), const char **fmt);
 void					format_character(void (*outc)(char),\
 		const char **fmt, t_args *args, va_list va);
 void					format_pointer(void (*outc)(char),\
@@ -75,5 +76,7 @@ void					buffer_out(void (*outc)(char),\
 		const char *buf, size_t size);
 void					format_out(void (*outc)(char),\
 		const char *buf, t_args *args, char c);
+void					formatter(void (*outc)(char), const char **fmt,\
+		t_args *args, va_list va);
 
 #endif

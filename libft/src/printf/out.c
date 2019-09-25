@@ -27,7 +27,9 @@ void				format_out(void (*outc)(char),\
 	size = ft_strlen(buf);
 
 	if (!buf) {
+		buffer_out(outc, RED, COLOR_LENGTH);
 		outc(c);
+		buffer_out(outc, NOCOLOR, NOCOLOR_LENGTH);
 		return ;
 	}
 
@@ -61,4 +63,25 @@ void				format_out(void (*outc)(char),\
 
 	if (args->flags & FMI)
 		pad(outc, args->width, args->flags & FZE ? '0' : ' ');
+}
+
+void				formatter(void (*outc)(char), const char **fmt,\
+		t_args *args, va_list va)
+{
+	if (**fmt == 'c' || **fmt == 'C')
+		format_character(outc, fmt, args, va);
+	else if (**fmt == 's' || **fmt == 'S')
+		format_string(outc, fmt, args, va);
+	else if (**fmt == 'b' || **fmt == 'o' || **fmt == 'd' || **fmt == 'D' ||
+			**fmt == 'i' || **fmt == 'u' || **fmt == 'x' || **fmt == 'X')
+		format_integer(outc, fmt, args, va);
+	else if (**fmt == 'p')
+		format_pointer(outc, fmt, args, va);
+	else if (**fmt == '/')
+		format_color(outc, fmt);
+	else if (**fmt == '%')
+		outc(**fmt);
+	else
+		outc(**fmt);
+	(*fmt)++;
 }
