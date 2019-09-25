@@ -108,6 +108,7 @@ SRC_NAME = 	assert/ft_assert.c\
 		printf/format_integer.c\
 		printf/format_pointer.c\
 		printf/format_string.c\
+		printf/format_color.c\
 		printf/ft_printf.c\
 		printf/get_parameters.c\
 		printf/out.c
