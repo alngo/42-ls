@@ -16,11 +16,14 @@
 # include "libft.h"
 # include <dirent.h>
 
-# define LS_OPT_LONG_FORMAT 	0x01
-# define LS_OPT_RECURSIVE 	0x02
-# define LS_OPT_INCLUDE_DOT 	0x04
-# define LS_OPT_REVERSE_ORDER 	0x08
-# define LS_OPT_SORT_BY_TIME	0x10
+typedef enum	e_options
+{
+	LS_OPT_LONG_FORMAT = 0x01,
+	LS_OPT_RECURSIVE = 0x02,
+	LS_OPT_INCLUDE_DOT = 0x04,
+	LS_OPT_REVERSE_ORDER = 0x08,
+	LS_OPT_SORT_BY_TIME = 0x10
+}		t_options;
 
 typedef struct		s_ls
 {
@@ -35,8 +38,7 @@ typedef struct		s_directory
 
 void		usage_out(t_ls *ls);
 void		illegal_option_out(t_ls *ls, char option);
-void		file_not_found_out(t_ls *ls, char *file_name);
-void		permission_denied_out(t_ls *ls, char *file_name);
+void		ls_perror_out(t_ls *ls, char *name);
 
 void		loop_through_options(char **av, t_ls *ls);
 

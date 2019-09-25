@@ -1,1 +1,1 @@
-make --silent && ./ft_ls
+make --silent && ./ft_ls src include no

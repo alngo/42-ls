@@ -12,15 +12,34 @@
 
 #include "ft_ls.h"
 
-void		add_directory(char *directory_name, t_ls *ls)
+void			add_directory(char *directory_name, t_ls *ls)
 {
-	(void)directory_name;
 	(void)ls;
+	DIR		*dirp;
+	struct dirent 	*dp;
+	size_t		len;
+
+	dirp = opendir(directory_name);
+	if (dirp == NULL)
+	{
+		ls_perror_out(ls, directory_name);
+		return ;
+	}
+	len = ft_strlen(directory_name);
+	while ((dp = readdir(dirp)) != NULL) {
+		ft_printf("coucou\n");
+		if (dp->d_namlen == len && ft_strcmp(dp->d_name, directory_name) == 0) {
+			(void)closedir(dirp);
+			ft_printf("FOUND\n");
+		}
+	}
+	if (dirp)
+		(void)closedir(dirp);
 }
 
 void		loop_through_directories(char **av, t_ls *ls)
 {
-	if (!av)
+	if (!*av)
 		add_directory(".", ls);
 	else
 	{
@@ -40,10 +59,9 @@ int		main(int ac, char **av)
 	ls.name = av[0];
 
 	av++;
+	ft_printf("-----------------------------\n", ac);
 	loop_through_options(av, &ls);
 	loop_through_directories(av, &ls);
-
-
 
 	ft_printf("Nombre d'args: %/r%d%/x\n", ac);
 	ft_printf("options: %/r%#.8b%/x\n", ls.options);

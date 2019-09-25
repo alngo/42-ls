@@ -6,7 +6,7 @@
 /*   By: alngo <alngo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/25 14:46:51 by alngo             #+#    #+#             */
-/*   Updated: 2019/09/25 14:47:02 by alngo            ###   ########.fr       */
+/*   Updated: 2019/09/25 16:56:16 by alngo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,10 @@ void		illegal_option_out(t_ls *ls, char option)
 	usage_out(ls);
 }
 
-void		file_not_found_out(t_ls *ls, char *file_name)
+void 		ls_perror_out(t_ls *ls, char *name)
 {
-	ft_printf("%s: %s: No such file or directory\n", ls->name, file_name);
+	ft_printf("%s: %s: ", ls->name, name);
+	perror("");
 }
 
-void		permission_denied_out(t_ls *ls, char *file_name)
-{
-	ft_printf("%s: %s: Permission denied\n", ls->name, file_name);
-}
+
