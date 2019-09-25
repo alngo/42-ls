@@ -27,14 +27,13 @@
 /*
 **	Colors
 */
-# define COL			\033
-# define RED			[0;31m
-# define GREEN			[0;32m
-# define YELLOW			[0;33m
-# define BLUE			[0;34m
-# define MAGENTA		[0;35m
-# define CYAN			[0;36m
-# define RST			[0m
+# define RED			"\033[0;31m"
+# define GREEN			"\033[0;32m"
+# define BLUE			"\033[0;34m"
+# define YELLOW			"\033[0;33m"
+# define MAGENTA		"\033[0;35m"
+# define CYAN			"\033[0;36m"
+# define NOCOLOR		"\033[0m"
 
 /*
 **	UNICODE

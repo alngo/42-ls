@@ -32,6 +32,7 @@ int		main(int ac, char **av)
 	ft_printf("%#.10X\n", 10);
 	ft_printf("%#.10o\n", 10);
 	ft_printf("%p\n", &ac);
+	ft_printf("%/RC%/Go%/Bu%/Mc%/Co%/Xu \n", &ac);
 
 	ft_printf("\n----------------------------------------\n");
 

@@ -19,7 +19,8 @@ void				buffer_out(void (*outc)(char), const char *buf, size_t size)
 	}
 }
 
-void				format_out(void (*outc)(char), const char *buf, t_args *args, char c)
+void				format_out(void (*outc)(char),\
+		const char *buf, t_args *args, char c)
 {
 	size_t 			size;
 

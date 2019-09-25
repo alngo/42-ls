@@ -49,6 +49,25 @@ int					xprintf(void (*outc)(char), const char *fmt,\
 	return (1);
 }
 
+void				format_color(void (*outc)(char), const char **fmt)
+{
+	(*fmt)++;
+	if (**fmt == 'R' )
+		buffer_out(outc, RED, 10);
+	else if (**fmt == 'G')
+		buffer_out(outc, GREEN, 10);
+	else if (**fmt == 'B')
+		buffer_out(outc, BLUE, 10);
+	else if (**fmt == 'Y')
+		buffer_out(outc, YELLOW, 10);
+	else if (**fmt == 'M')
+		buffer_out(outc, MAGENTA, 10);
+	else if (**fmt == 'C')
+		buffer_out(outc, CYAN, 10);
+	else if (**fmt == 'X')
+		buffer_out(outc, NOCOLOR, 7);
+}
+
 void				formatter(void (*outc)(char), const char **fmt,\
 		t_args *args, va_list va)
 {
@@ -61,6 +80,8 @@ void				formatter(void (*outc)(char), const char **fmt,\
 		format_integer(outc, fmt, args, va);
 	else if (**fmt == 'p')
 		format_pointer(outc, fmt, args, va);
+	else if (**fmt == '/')
+		format_color(outc, fmt);
 	else if (**fmt == '%')
 		outc(**fmt);
 	else
