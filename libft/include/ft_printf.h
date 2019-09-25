@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: alngo <alngo@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/09/25 10:58:16 by alngo             #+#    #+#             */
+/*   Updated: 2019/09/25 11:09:18 by alngo            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
 
@@ -7,7 +19,7 @@
 /*
 **	Flags
 */
-# define FSP		0x01
+# define FSP 		0x01
 # define FPL 		0x02
 # define FMI 		0x04
 # define FNO 		0x08
@@ -17,12 +29,12 @@
 /*
 **	Types
 */
-# define TL		0x01
-# define TLL		0x02
-# define TH		0x04
-# define THH		0x08
-# define TJ		0x10
-# define TZ		0x32
+# define TL 		0x01
+# define TLL 		0x02
+# define TH 		0x04
+# define THH 		0x08
+# define TJ 		0x10
+# define TZ 		0x32
 
 /*
 **	Colors
@@ -38,7 +50,7 @@
 # define NOCOLOR_LENGTH	7
 
 /*
-**	UNICODE
+**	UNICODE MASK
 */
 # define ENCODE_07BITS	0x0
 # define ENCODE_11BITS	0xC080
@@ -53,6 +65,9 @@ typedef struct		s_args
 	unsigned short	type;
 }			t_args;
 
+/*
+**	PROTOTYPES
+*/
 int			ft_printf(const char *fmt, ...);
 int			xprintf(void (*pf)(char), const char *fmt, va_list ap);
 void			formatter(void (*outc)(char), const char **fmt,\
