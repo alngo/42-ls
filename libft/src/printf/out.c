@@ -6,7 +6,7 @@
 /*   By: alngo <alngo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/25 09:46:14 by alngo             #+#    #+#             */
-/*   Updated: 2019/09/25 10:01:50 by alngo            ###   ########.fr       */
+/*   Updated: 2019/09/25 13:50:15 by alngo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ void				format_out(void (*outc)(char),\
 	if (args->flags & FNO && buf[0] != '0' &&\
 			(c == 'x' || c == 'X' || c == 'p'))
 		buffer_out(outc, c == 'X' ? "0X" : "0x", 2);
+	if (args->flags & FNO && buf[0] != '0' && c == 'b')
+		buffer_out(outc, "0b", 2);
 	if (c == 'X')
 		ft_striter((char *)buf, &ft_toupper);
 	padding(outc, args->precision, '0');
