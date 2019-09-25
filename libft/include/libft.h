@@ -35,4 +35,10 @@
 # define MAX(a, b) a < b ? b : a
 # define MIN(a, b) a < b ? a : b
 
+typedef enum 	e_boolean
+{
+	FALSE,
+	TRUE
+}		t_boolean;
+
 #endif
