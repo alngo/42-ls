@@ -6,7 +6,7 @@
 #    By: alngo <alngo@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/11 11:09:45 by alngo             #+#    #+#              #
-#    Updated: 2019/09/11 11:46:03 by alngo            ###   ########.fr        #
+#    Updated: 2019/09/25 14:51:29 by alngo            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,9 @@ SRC_PATH = src
 OBJ_PATH = obj
 INC_PATH= ./include
 
-SRC_NAME = main.c
+SRC_NAME = main.c\
+	   out.c\
+	   option.c
 LFT_PATH = ./libft/
 LFT_A = -lft
 

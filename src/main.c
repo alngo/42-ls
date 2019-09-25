@@ -6,60 +6,29 @@
 /*   By: alngo <alngo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/11 11:14:29 by alngo             #+#    #+#             */
-/*   Updated: 2019/09/25 13:50:37 by alngo            ###   ########.fr       */
+/*   Updated: 2019/09/25 14:49:41 by alngo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-void		usage_out(t_ls *ls)
+void		add_directory(char *directory_name, t_ls *ls)
 {
-	ft_printf("usage: %s [-Ralrt] [file...]\n", ls->name);
-	exit(1);
+	(void)ls;
+	ft_printf("%/g%s%/x\n", directory_name);
 }
 
-void		illegal_option_out(t_ls *ls, char option)
+void		loop_through_directories(char **av, t_ls *ls)
 {
-	ft_printf("%s: illegal option -- %c\n", ls->name, option);
-	usage_out(ls);
-}
-
-void		file_not_found_out(t_ls *ls, char *file_name)
-{
-	ft_printf("%s: %s: No such file or directory\n", ls->name, file_name);
-}
-
-void		set_options(char *arg, t_ls *ls)
-{
-	arg++;
-	while(*arg)
+	if (!av)
+		add_directory(".", ls);
+	else
 	{
-		if (*arg == 'R')
-			ls->options |= LS_OPT_RECURSIVE;
-		else if (*arg == 'a')
-			ls->options |= LS_OPT_INCLUDE_DOT;
-		else if (*arg == 'l')
-			ls->options |= LS_OPT_LONG_FORMAT;
-		else if (*arg == 'r')
-			ls->options |= LS_OPT_REVERSE_ORDER;
-		else if (*arg == 't')
-			ls->options |= LS_OPT_SORT_BY_TIME;
-		else
-			illegal_option_out(ls, *arg);
-		arg++;
-	}
-}
-
-void		get_options(char **av, t_ls *ls)
-{
-	while(*av)
-	{
-		ft_printf("%/g%s%/x\n", *av);
-		if (*av[0] == '-')
-			set_options(*av, ls);
-		else
-			break;
-		av++;
+		while (*av)
+		{
+			add_directory(*av, ls);
+			av++;
+		}
 	}
 }
 
@@ -71,7 +40,8 @@ int		main(int ac, char **av)
 	ls.name = av[0];
 
 	av++;
-	get_options(av, &ls);
+	loop_through_options(av, &ls);
+	loop_through_directories(av, &ls);
 
 	ft_printf("Nombre d'args: %/r%d%/x\n", ac);
 	ft_printf("options: %/r%#.8b%/x\n", ls.options);
