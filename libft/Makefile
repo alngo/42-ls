@@ -28,9 +28,11 @@ SRC_NAME = 	assert/ft_assert.c\
 		type/ft_isspace.c\
 		type/ft_isupper.c\
 		type/ft_isxdigit.c\
+		type/ft_isascii.c\
+		type/ft_lower.c\
+		type/ft_upper.c\
 		type/ft_tolower.c\
 		type/ft_toupper.c\
-		type/ft_isascii.c\
 		\
 		str/ft_strlen.c\
 		str/ft_strnlen.c\
@@ -85,8 +87,7 @@ SRC_NAME = 	assert/ft_assert.c\
 		conv/ft_stoul.c\
 		conv/ft_strtol.c\
 		conv/ft_strtoul.c\
-		conv/ft_uimaxtoa_base.c\
-		conv/ft_imaxtoa.c\
+		conv/ft_imaxtoa_base.c\
 		conv/ft_itoa.c\
 		\
 		lst/ft_lstadd.c\
@@ -103,24 +104,14 @@ SRC_NAME = 	assert/ft_assert.c\
 		\
 		gnl/ft_gnl.c\
 		\
-		printf/ft_litob.c\
+		printf/format_character.c\
+		printf/format_integer.c\
+		printf/format_pointer.c\
+		printf/format_string.c\
+		printf/format_color.c\
 		printf/ft_printf.c\
-		printf/ft_xprintf.c\
-		printf/handle_binary.c\
-		printf/handle_character.c\
-		printf/handle_decimal.c\
-		printf/handle_hexadecimal.c\
-		printf/handle_octal.c\
-		printf/handle_percent.c\
-		printf/handle_pointer.c\
-		printf/handle_string.c\
-		printf/handle_unsigned.c\
-		printf/handle_upper.c\
-		printf/parse.c\
-		printf/utils.c\
-		printf/wchar_t.c\
-		printf/miniprintf.c\
-		printf/ft_putnstr_fd.c
+		printf/get_parameters.c\
+		printf/out.c
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
 OBJ_PATH = obj

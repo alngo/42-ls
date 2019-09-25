@@ -1,24 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   handle_percent.c                                   :+:      :+:    :+:   */
+/*   format_string.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alngo <alngo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/06/20 13:07:55 by alngo             #+#    #+#             */
-/*   Updated: 2017/07/26 21:45:22 by alngo            ###   ########.fr       */
+/*   Created: 2019/09/25 09:46:29 by alngo             #+#    #+#             */
+/*   Updated: 2019/09/25 09:46:49 by alngo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ft_printf.h"
 #include "libft.h"
 
-int			handle_percent(t_arg *arg, size_t *len)
+void			format_string(void (*outc)(char),\
+		const char **fmt, t_args *args, va_list va)
 {
-	char	*tmp;
-	size_t	size;
+	const char	*str;
 
-	tmp = "%";
-	size = ft_strlen(tmp);
-	push_tmp(tmp, arg, len, size);
-	return (1);
+	str = va_arg(va, const char *);
+	if (**fmt == 'S' || args->type & TL)
+		format_out(outc, str, args, **fmt);
+	if (**fmt == 's')
+		format_out(outc, str, args, **fmt);
 }

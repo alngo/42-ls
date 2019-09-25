@@ -1,41 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   miniprintf.c                                       :+:      :+:    :+:   */
+/*   ft_tolower.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alngo <alngo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/01/06 15:35:50 by alngo             #+#    #+#             */
-/*   Updated: 2017/01/06 15:36:12 by alngo            ###   ########.fr       */
+/*   Created: 2017/10/11 16:50:42 by alngo             #+#    #+#             */
+/*   Updated: 2019/06/01 12:59:43 by alngo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdarg.h>
+#include "ft_type.h"
 
-void			miniprintf(const char *fmt, ...)
+int		ft_lower(int c)
 {
-	va_list	ap;
-	char	*tmp;
-
-	va_start(ap, fmt);
-	tmp = (char *)fmt;
-	while (*tmp)
-	{
-		if (*tmp == '%')
-		{
-			if (*(++tmp) == 's')
-				ft_putstr(va_arg(ap, char *));
-			else if (*tmp == 'd')
-				ft_putnbr(va_arg(ap, int));
-			else if (*tmp == 'c')
-				ft_putchar(va_arg(ap, int));
-			else
-				ft_putchar(*tmp);
-			tmp++;
-		}
-		ft_putchar(*tmp);
-		tmp++;
-	}
-	va_end(ap);
+	if (ft_isupper(c))
+		return (c + 32);
+	return (c);
 }

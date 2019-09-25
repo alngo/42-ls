@@ -1,30 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   handle_upper.c                                     :+:      :+:    :+:   */
+/*   ft_tolower.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alngo <alngo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/07/03 18:48:06 by alngo             #+#    #+#             */
-/*   Updated: 2017/07/26 21:48:54 by alngo            ###   ########.fr       */
+/*   Created: 2017/10/11 16:50:42 by alngo             #+#    #+#             */
+/*   Updated: 2019/06/01 12:59:43 by alngo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include "ft_type.h"
 
-int				handle_upper(t_arg *arg, va_list *ap, size_t *len)
+int		ft_upper(int c)
 {
-	char		tmp[2];
-	size_t		size;
-
-	(void)ap;
-	if (!(tmp[0] = arg->spec))
-	{
-		push_tmp("", arg, len, 1);
-		return (1);
-	}
-	tmp[1] = '\0';
-	size = ft_strlen(tmp);
-	push_tmp(tmp, arg, len, size);
-	return (1);
+	if (ft_islower(c))
+		return (c - 32);
+	return (c);
 }

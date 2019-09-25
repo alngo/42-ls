@@ -1,23 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnstr_fd.c                                    :+:      :+:    :+:   */
+/*   format_pointer.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alngo <alngo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/06/20 13:18:03 by alngo             #+#    #+#             */
-/*   Updated: 2017/06/20 13:18:40 by alngo            ###   ########.fr       */
+/*   Created: 2019/09/25 09:46:36 by alngo             #+#    #+#             */
+/*   Updated: 2019/09/25 09:46:49 by alngo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ft_printf.h"
 #include "libft.h"
 
-void		ft_putnstr_fd(char *s, size_t n, int fd)
+void				format_pointer(void (*outc)(char),\
+		const char **fmt, t_args *args, va_list va)
 {
-	while (n)
-	{
-		write(1, &(*s), fd);
-		s++;
-		n--;
-	}
+	unsigned long	value;
+	char			*tmp;
+
+	value = (unsigned long)va_arg(va, unsigned long);
+	args->flags |= FNO;
+	tmp = ft_imaxtoa_base((unsigned long)value, 16, "0123456789abcdef");
+	format_out(outc, tmp, args, **fmt);
+	if (tmp)
+		free(tmp);
 }
