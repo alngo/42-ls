@@ -12,57 +12,68 @@
 
 #include "ft_ls.h"
 
-DIR			*return_directory(char *directory_name, t_ls *ls)
+DIR			*return_directory(char *directory_name)
 {
 	DIR		*dirp;
 
-	if ((dirp = opendir(directory_name)))
-		return (dirp);
-	else
-		ls_perror_out(ls, directory_name);
-	return (NULL);
+	if (!(dirp = opendir(directory_name)))
+		return (NULL);
+	return (dirp);
 }
 
-void			add_directory(char *directory_name, t_ls *ls)
+t_list			*return_element(char *directory_name)
 {
 	t_directory	directory;
 	t_list		*element;
 
-	directory.dirp = return_directory(directory_name, ls);
-	if (!directory.dirp)
-		return ;
-	element = ft_lstnew(&directory, sizeof(t_directory));
-	ft_lstadd(&(ls->list), element);
+	if (!(directory.dirp = return_directory(directory_name)))
+		return (NULL);
+	if (!(element = ft_lstnew(&directory, sizeof(t_directory))))
+		return (NULL);
+	return (element);
 }
 
-void		loop_through_directories(char **av, t_ls *ls)
+
+void			add_to_list(t_list *list, char *directory_name, t_ls *ls)
 {
+	t_list	*tmp;
+
+	if ((tmp = return_element(directory_name)))
+		ls_perror_out(ls, directory_name);
+	else
+		ft_lstadd(&list, tmp);
+}
+
+t_list		*retrieve_directories(char **av, t_ls *ls)
+{
+	t_list	*list;
+
+	list = NULL;
 	if (!*av)
-		add_directory(".", ls);
+		add_to_list(list, ".", ls);
 	else
 	{
 		while (*av)
 		{
-			add_directory(*av, ls);
+			add_to_list(list, ".", ls);
 			av++;
 		}
 	}
+	return (list);
 }
-
 
 int		main(int ac, char **av)
 {
 	t_ls	ls;
+	t_list	*list;
 
 	ls.options = 0;
 	ls.name = av[0];
 
 	av++;
 	ft_printf("-----------------------------\n", ac);
-	loop_through_options(av, &ls);
-	loop_through_directories(av, &ls);
-
-
+	retrieve_options(av, &ls);
+	list = retrieve_directories(av, &ls);
 
 	ft_printf("Nombre d'args: %/r%d%/x\n", ac);
 	ft_printf("options: %/r%#.8b%/x\n", ls.options);

@@ -6,10 +6,9 @@
 /*   By: alngo <alngo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/11 11:22:37 by alngo             #+#    #+#             */
-/*   Updated: 2019/09/25 14:51:12 by alngo            ###   ########.fr       */
+/*   Updated: 2019/09/26 20:38:15 by alngo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #ifndef FT_LS_H
 # define FT_LS_H
 
@@ -29,7 +28,6 @@ typedef struct		s_ls
 {
 	char		*name;
 	uint8_t		options;
-	t_list		*list;
 }			t_ls;
 
 typedef struct		s_directory
@@ -43,6 +41,6 @@ void		usage_out(t_ls *ls);
 void		illegal_option_out(t_ls *ls, char option);
 void		ls_perror_out(t_ls *ls, char *name);
 
-void		loop_through_options(char **av, t_ls *ls);
+void		retrieve_options(char **av, t_ls *ls);
 
 #endif

@@ -33,7 +33,7 @@ void		parse_options(char *arg, t_ls *ls)
 	}
 }
 
-void		loop_through_options(char **av, t_ls *ls)
+void		retrieve_options(char **av, t_ls *ls)
 {
 	while(*av)
 	{
