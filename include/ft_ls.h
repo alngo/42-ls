@@ -29,10 +29,13 @@ typedef struct		s_ls
 {
 	char		*name;
 	uint8_t		options;
+	t_list		*list;
 }			t_ls;
 
 typedef struct		s_directory
 {
+	DIR		*dirp;
+	struct dirent	*dp;
 
 }			t_directory;
 
