@@ -6,7 +6,7 @@
 /*   By: alngo <alngo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/11 11:14:29 by alngo             #+#    #+#             */
-/*   Updated: 2019/09/26 20:08:54 by alngo            ###   ########.fr       */
+/*   Updated: 2019/10/02 16:27:23 by alngo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 DIR			*return_directory(char *directory_name)
 {
-	DIR		*dirp;
+	DIR	*dirp;
 
 	if (!(dirp = opendir(directory_name)))
 		return (NULL);
@@ -23,7 +23,7 @@ DIR			*return_directory(char *directory_name)
 
 t_list			*return_element(char *directory_name)
 {
-	t_directory	directory;
+	t_ls_element	el;
 	t_list		*element;
 
 	if (!(directory.dirp = return_directory(directory_name)))
@@ -36,7 +36,7 @@ t_list			*return_element(char *directory_name)
 
 void			add_to_list(t_list *list, char *directory_name, t_ls *ls)
 {
-	t_list	*tmp;
+	t_ls_elememt	*tmp;
 
 	ft_printf("%/g%s%/x\n", directory_name);
 	if (!(tmp = return_element(directory_name)))
@@ -45,7 +45,7 @@ void			add_to_list(t_list *list, char *directory_name, t_ls *ls)
 		ft_lstadd(&list, tmp);
 }
 
-t_list		*retrieve_directories(char ***av, t_ls *ls)
+t_list		*retrieve_args(char ***av, t_ls *ls)
 {
 	t_list	*list;
 
@@ -65,18 +65,19 @@ int		main(int ac, char **av)
 {
 	t_ls	ls;
 	t_list	*list;
+	char	**args;
 
 	ls.options = 0;
 	ls.name = av[0];
 
-	av++;
-	ft_printf("-----------------------------\n", ac);
-	retrieve_options(&av, &ls);
+	args = av;
+	args++;
+	ft_printf("-----------------------------\n");
+	retrieve_options(&args, &ls);
 
-	ft_printf("after options: %/r%s%/x\n", *av);
-	ft_printf("-----------------------------\n", ac);
-
-	list = retrieve_directories(&av, &ls);
+	ft_printf("after options: %/r%s%/x\n", *args);
+	ft_printf("-----------------------------\n");
+	list = retrieve_args(&args, &ls);
 
 	ft_printf("-----------------------------\n", ac);
 	ft_printf("Nombre d'args: %/r%d%/x\n", ac);

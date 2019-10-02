@@ -14,6 +14,7 @@
 
 # include "libft.h"
 # include <dirent.h>
+# include <sys/stat.h>
 
 typedef enum	e_options
 {
@@ -30,12 +31,12 @@ typedef struct		s_ls
 	uint8_t		options;
 }			t_ls;
 
-typedef struct		s_directory
+typedef struct		s_ls_args
 {
-	DIR		*dirp;
-	struct dirent	*dp;
-
-}			t_directory;
+	struct stat 	fileStat;
+	char		*name;
+	uint8_t		type;
+}			t_ls_args;
 
 void		usage_out(t_ls *ls);
 void		illegal_option_out(t_ls *ls, char option);
