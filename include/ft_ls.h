@@ -41,6 +41,6 @@ void		usage_out(t_ls *ls);
 void		illegal_option_out(t_ls *ls, char option);
 void		ls_perror_out(t_ls *ls, char *name);
 
-void		retrieve_options(char **av, t_ls *ls);
+void		retrieve_options(char ***av, t_ls *ls);
 
 #endif

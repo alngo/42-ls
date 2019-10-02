@@ -1,1 +1,1 @@
-make --silent && ./ft_ls src include no
+make --silent && ./ft_ls -r src include no Makefile

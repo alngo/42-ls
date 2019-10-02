@@ -33,14 +33,14 @@ void		parse_options(char *arg, t_ls *ls)
 	}
 }
 
-void		retrieve_options(char **av, t_ls *ls)
+void		retrieve_options(char ***av, t_ls *ls)
 {
-	while(*av)
+	while(**av)
 	{
-		if (*av[0] == '-')
-			parse_options(*av, ls);
+		if (**av[0] == '-')
+			parse_options(**av, ls);
 		else
 			break;
-		av++;
+		(*av)++;
 	}
 }

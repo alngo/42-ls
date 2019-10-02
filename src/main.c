@@ -38,27 +38,26 @@ void			add_to_list(t_list *list, char *directory_name, t_ls *ls)
 {
 	t_list	*tmp;
 
-	if ((tmp = return_element(directory_name)))
+	ft_printf("%/g%s%/x\n", directory_name);
+	if (!(tmp = return_element(directory_name)))
 		ls_perror_out(ls, directory_name);
 	else
 		ft_lstadd(&list, tmp);
 }
 
-t_list		*retrieve_directories(char **av, t_ls *ls)
+t_list		*retrieve_directories(char ***av, t_ls *ls)
 {
 	t_list	*list;
 
 	list = NULL;
-	if (!*av)
+	if (!**av)
 		add_to_list(list, ".", ls);
 	else
-	{
-		while (*av)
+		while (**av)
 		{
-			add_to_list(list, ".", ls);
-			av++;
+			add_to_list(list, **av, ls);
+			(*av)++;
 		}
-	}
 	return (list);
 }
 
@@ -72,9 +71,14 @@ int		main(int ac, char **av)
 
 	av++;
 	ft_printf("-----------------------------\n", ac);
-	retrieve_options(av, &ls);
-	list = retrieve_directories(av, &ls);
+	retrieve_options(&av, &ls);
 
+	ft_printf("after options: %/r%s%/x\n", *av);
+	ft_printf("-----------------------------\n", ac);
+
+	list = retrieve_directories(&av, &ls);
+
+	ft_printf("-----------------------------\n", ac);
 	ft_printf("Nombre d'args: %/r%d%/x\n", ac);
 	ft_printf("options: %/r%#.8b%/x\n", ls.options);
 
