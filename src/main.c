@@ -6,7 +6,7 @@
 /*   By: alngo <alngo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/11 11:14:29 by alngo             #+#    #+#             */
-/*   Updated: 2019/10/16 14:36:51 by alngo            ###   ########.fr       */
+/*   Updated: 2019/10/16 16:24:31 by alngo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,25 +31,6 @@ int			retrieveLongestNameLength(t_list *list)
 	return (longestNameLength);
 }
 
-void			ft_lstremove(t_list **alst)
-
-const sanitize_arguments(t_list *list, t_ls *ls)
-{
-	t_list		*directories;
-	t_list		*files;
-	t_ls_arg 	*tmp;
-
-	while (*list)
-	{
-		tmp = (t_ls_arg *)list->content;
-		if (S_ISDIR(tmp.stat.st_mode))
-			ft_lst
-
-
-
-	}
-}
-
 void			process_arguments(t_list *list, t_ls ls)
 {
 	(void)list;
@@ -71,7 +52,8 @@ int		main(int ac, char **av)
 
 	ls.options = retrieve_options(&args, &ls);
 	list = retrieve_arguments(&args, &ls);
-	list = sanitize_arguments(list, &ls);
+	displayListOrder(list);
+
 
 	ft_printf("--------PROCESSING-----------\n", ac);
 

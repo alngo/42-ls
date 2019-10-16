@@ -31,7 +31,7 @@ void	 displayListOrder(t_list *list)
 	t_ls_arg	*arg;
 
 	tmp = list;
-	if (list)
+	if (tmp)
 	{
 		ft_printf("%/g[ORDER]%/x: => ");
 		while (tmp)

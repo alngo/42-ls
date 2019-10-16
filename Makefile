@@ -6,7 +6,7 @@
 #    By: alngo <alngo@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/11 11:09:45 by alngo             #+#    #+#              #
-#    Updated: 2019/10/16 12:19:55 by alngo            ###   ########.fr        #
+#    Updated: 2019/10/16 15:29:46 by alngo            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,8 @@ LFT_A = -lft
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
 
+SANITIZE = -fsanitize=address
+
 SRC = $(addprefix $(SRC_PATH)/,$(SRC_NAME))
 OBJ = $(addprefix $(OBJ_PATH)/,$(OBJ_NAME))
 INC = $(addprefix $(INCLUDE_PATH)/,$(INC_NAME))
@@ -43,7 +45,7 @@ all: $(NAME)
 $(NAME): $(OBJ_PATH) $(OBJ) $(INC)
 	@echo "${RED}Libft Compilation...${NC}"
 	make -C $(LFT_PATH)
-	$(CC) $(CFLAGS) -I $(INC_PATH) -L $(LFT_PATH) $(LFT_A) \
+	$(CC) $(CFLAGS) $(SANITIZE) -I $(INC_PATH) -L $(LFT_PATH) $(LFT_A) \
 	   $(OBJ) -o $(NAME) $(FRAMEWORK)
 	@echo "${RED}Ready to go !${NC}"
 
