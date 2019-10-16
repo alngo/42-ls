@@ -6,7 +6,7 @@
 /*   By: alngo <alngo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 12:10:57 by alngo             #+#    #+#             */
-/*   Updated: 2019/10/16 12:19:02 by alngo            ###   ########.fr       */
+/*   Updated: 2019/10/16 14:25:13 by alngo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,39 +25,33 @@ t_list			*return_element(char *arg_name)
 	return (element);
 }
 
-void			add_to_list(t_list **list, char *arg_name, t_ls *ls)
+void			add_to_list(t_list **list, t_list *newElement, t_ls *ls)
 {
-	t_list		*tmp;
 	void		*func;
 
 	func = &lexicographicalOrder;
-	if ((tmp = return_element(arg_name)))
-	{
-		if (ls->options & LS_OPT_REVERSE_ORDER)
-			func = &lexicographicalOrderInverted;
-		else if (ls->options & LS_OPT_SORT_BY_TIME)
-			func = &sortByTime;
-		ft_lstinsert(list, tmp, func);
-	}
-	else
-		ls_perror_out(ls, arg_name);
+	if (ls->options & LS_OPT_REVERSE_ORDER)
+		func = &lexicographicalOrderInverted;
+	else if (ls->options & LS_OPT_SORT_BY_TIME)
+		func = &sortByTime;
+	ft_lstinsert(list, newElement, func);
 }
+
 
 t_list		*retrieve_arguments(char ***args, t_ls *ls)
 {
 	t_list	*list;
+	t_list	*tmp;
 
 	list = NULL;
-	if (**args)
+	while (**args)
 	{
-		while (**args)
-		{
-			add_to_list(&list, **args, ls);
-			(*args)++;
-		}
+		if ((tmp = return_element(**args)))
+			add_to_list(&list, tmp, ls);
+		else
+			ls_perror_out(ls, **args);
+		(*args)++;
+		ls->count++;
 	}
-	else
-		add_to_list(&list, ".", ls);
 	return (list);
 }
-

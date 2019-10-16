@@ -2,8 +2,7 @@
 
 void 			displayFileStat(const char *arg_name, struct stat *fileStat)
 {
-	printf("---------------------------\n");
-	printf("Information for %s\n", arg_name);
+	printf("---------------------------\n"); printf("Information for %s\n", arg_name);
 	printf("---------------------------\n");
 	printf("File Size: \t\t%lld bytes\n",fileStat->st_size);
 	printf("Number of Links: \t%d\n",fileStat->st_nlink);
