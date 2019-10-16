@@ -6,7 +6,7 @@
 /*   By: alngo <alngo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 10:18:11 by alngo             #+#    #+#             */
-/*   Updated: 2019/10/16 11:35:11 by alngo            ###   ########.fr       */
+/*   Updated: 2019/10/16 11:54:28 by alngo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,21 +37,22 @@ int			lexicographicalOrderInverted(void *contentToInsert, void *content)
 int			compareTimestamp(long a, long b)
 {
 	if (a < b)
-		return (-1);
-	else if (a > b)
 		return (1);
+	else if (a > b)
+		return (-1);
 	else
 		return (0);
 }
 
-int			sortByTime(void *content, void *contentToInsert)
+int			sortByTime(void *contentToInsert, void *content)
 {
 	t_ls_arg	*element;
 	t_ls_arg	*elementToInsert;
 
+
 	element = (t_ls_arg *)content;
 	elementToInsert = (t_ls_arg *)contentToInsert;
 
-	return (compareTimestamp(element->stat.st_mtimespec.tv_nsec,
-				elementToInsert->stat.st_mtimespec.tv_nsec));
+	return (compareTimestamp(elementToInsert->stat.st_mtime,
+				element->stat.st_mtime));
 }
