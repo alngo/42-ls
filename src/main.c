@@ -6,7 +6,7 @@
 /*   By: alngo <alngo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/11 11:14:29 by alngo             #+#    #+#             */
-/*   Updated: 2019/10/16 10:10:23 by alngo            ###   ########.fr       */
+/*   Updated: 2019/10/16 11:34:30 by alngo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,14 +46,14 @@ void	 displayListOrder(t_list *list)
 	tmp = list;
 	if (list)
 	{
-		printf("[ORDER]: ");
+		ft_printf("%/g[ORDER]%/x: => ");
 		while (tmp)
 		{
 			arg = (t_ls_arg *)tmp->content;
-			printf("%s -> ", arg->name);
+			ft_printf("%s -> ", arg->name);
 			tmp = tmp->next;
 		}
-		printf("[END]\n");
+		ft_printf("%/g[END]%/x\n");
 	}
 }
 
@@ -62,38 +62,15 @@ t_list			*return_element(char *arg_name)
 	t_ls_arg	arg;
 	t_list		*element;
 
-	if (stat(arg_name, &arg.fileStat) < 0)
+	if (stat(arg_name, &arg.stat) < 0)
 		return (NULL);
-	displayFileStat(arg_name, &arg.fileStat);
 	arg.name = arg_name;
 	if (!(element = ft_lstnew(&arg, sizeof(t_ls_arg))))
 		return (NULL);
 	return (element);
 }
 
-int			lexicographicalOrder(void *content, void *contentToInsert)
-{
-	t_ls_arg	*element;
-	t_ls_arg	*elementToInsert;
-
-	element = (t_ls_arg *)content;
-	elementToInsert = (t_ls_arg *)contentToInsert;
-
-	return (ft_strcmp(element->name, elementToInsert->name));
-}
-
-int			lexicographicalOrderInverted(void *content, void *contentToInsert)
-{
-	t_ls_arg	*element;
-	t_ls_arg	*elementToInsert;
-
-	element = (t_ls_arg *)content;
-	elementToInsert = (t_ls_arg *)contentToInsert;
-
-	return (ft_strcmp(elementToInsert->name, element->name));
-}
-
-void			add_to_list(t_list *list, char *arg_name, t_ls *ls)
+void			add_to_list(t_list **list, char *arg_name, t_ls *ls)
 {
 	t_list		*tmp;
 	void		*func;
@@ -105,27 +82,23 @@ void			add_to_list(t_list *list, char *arg_name, t_ls *ls)
 	{
 		if (ls->options & LS_OPT_REVERSE_ORDER)
 			func = &lexicographicalOrderInverted;
-		ft_lstinsert(&list, tmp, func);
+		ft_lstinsert(list, tmp, func);
 	}
 }
 
-t_list		*retrieve_args(char ***av, t_ls *ls)
+t_list		*retrieve_args(char ***args, t_ls *ls)
 {
-	t_list	*list; (*av)++;
-
-	if (**av)
-		ft_printf("after options: %/r%s%/x\n", **av);
+	t_list	*list;
 
 	list = NULL;
-	if (!**av)
-		add_to_list(list, ".", ls);
+	if (!**args)
+		add_to_list(&list, ".", ls);
 	else
-		while (**av)
+		while (**args)
 		{
-			add_to_list(list, **av, ls);
-			(*av)++;
+			add_to_list(&list, **args, ls);
+			(*args)++;
 		}
-
 	displayListOrder(list);
 	return (list);
 }
@@ -140,6 +113,7 @@ int		main(int ac, char **av)
 	ls.name = av[0];
 
 	args = av;
+	args++;
 	ft_printf("-----------------------------\n");
 	retrieve_options(&args, &ls);
 	ft_printf("-----------------------------\n");

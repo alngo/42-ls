@@ -6,7 +6,7 @@
 #    By: alngo <alngo@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/11 11:09:45 by alngo             #+#    #+#              #
-#    Updated: 2019/09/25 14:51:29 by alngo            ###   ########.fr        #
+#    Updated: 2019/10/16 10:17:58 by alngo            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,8 @@ INC_PATH= ./include
 
 SRC_NAME = main.c\
 	   out.c\
-	   option.c
+	   option.c\
+	   sort.c
 LFT_PATH = ./libft/
 LFT_A = -lft
 

@@ -6,7 +6,7 @@
 /*   By: alngo <alngo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/25 09:46:41 by alngo             #+#    #+#             */
-/*   Updated: 2019/09/25 10:13:27 by alngo            ###   ########.fr       */
+/*   Updated: 2019/10/16 11:16:24 by alngo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ void			format_type(intmax_t *value, t_args *args, uint8_t di)
 		*value = di ? (short)val : (unsigned short)val;
 	else if (args->type & TH)
 		*value = di ? (signed char)val : (unsigned char)val;
+	else
+		*value = (int)val;
 }
 
 void			format_integer(void (*outc)(char),\

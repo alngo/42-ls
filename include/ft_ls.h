@@ -6,7 +6,7 @@
 /*   By: alngo <alngo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/11 11:22:37 by alngo             #+#    #+#             */
-/*   Updated: 2019/10/16 09:27:22 by alngo            ###   ########.fr       */
+/*   Updated: 2019/10/16 11:24:02 by alngo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef FT_LS_H
@@ -33,7 +33,7 @@ typedef struct		s_ls
 
 typedef struct		s_ls_arg
 {
-	struct stat 	fileStat;
+	struct stat 	stat;
 	char		*name;
 }			t_ls_arg;
 
@@ -41,5 +41,10 @@ void			usage_out(t_ls *ls);
 void			illegal_option_out(t_ls *ls, char option);
 void			ls_perror_out(t_ls *ls, char *name);
 void			retrieve_options(char ***av, t_ls *ls);
+
+int			lexicographicalOrder(void *content,
+		void *contentToInsert);
+int			lexicographicalOrderInverted(void *content,
+		void *contentToInsert);
 
 #endif
