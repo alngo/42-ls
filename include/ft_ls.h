@@ -6,7 +6,7 @@
 /*   By: alngo <alngo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/11 11:22:37 by alngo             #+#    #+#             */
-/*   Updated: 2019/10/16 15:52:21 by alngo            ###   ########.fr       */
+/*   Updated: 2019/10/16 16:36:10 by alngo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef FT_LS_H
@@ -30,6 +30,7 @@ typedef struct		s_ls
 	char		*name;
 	uint8_t		options;
 	size_t		count;
+	t_list		*other_list;
 }			t_ls;
 
 typedef struct		s_ls_arg
