@@ -6,7 +6,7 @@
 /*   By: alngo <alngo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/11 11:14:29 by alngo             #+#    #+#             */
-/*   Updated: 2019/10/16 17:02:15 by alngo            ###   ########.fr       */
+/*   Updated: 2019/10/16 17:13:26 by alngo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void			process_arguments(t_list *list, t_ls *ls)
 void			long_format_out(t_list *list)
 {
 	(void)list;
+
 }
 
 void			short_format_out(t_list *list)
@@ -48,11 +49,11 @@ void			short_format_out(t_list *list)
 	t_ls_arg	*tmp;
 	int		padding;
 
-	padding = retrieveLongestNameLength(list);
+	padding = retrieveLongestNameLength(list) + 1;
 	while (list)
 	{
 		tmp = (t_ls_arg *)list->content;
-		ft_printf("%*s", padding, tmp->name);
+		ft_printf("%-*s ", padding, tmp->name);
 		list = list->next;
 	}
 	ft_printf("\n");
