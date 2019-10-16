@@ -6,7 +6,7 @@
 #    By: alngo <alngo@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/11 11:09:45 by alngo             #+#    #+#              #
-#    Updated: 2019/10/16 10:17:58 by alngo            ###   ########.fr        #
+#    Updated: 2019/10/16 12:19:55 by alngo            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,9 +19,11 @@ OBJ_PATH = obj
 INC_PATH= ./include
 
 SRC_NAME = main.c\
-	   out.c\
-	   option.c\
-	   sort.c
+	   error_out.c\
+	   retrieve_options.c\
+	   retrieve_arguments.c\
+	   sort_arguments.c\
+	   tmpToDelete.c
 LFT_PATH = ./libft/
 LFT_A = -lft
 
