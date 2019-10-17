@@ -6,7 +6,7 @@
 /*   By: alngo <alngo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/11 11:14:29 by alngo             #+#    #+#             */
-/*   Updated: 2019/10/16 17:13:26 by alngo            ###   ########.fr       */
+/*   Updated: 2019/10/17 12:52:51 by alngo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,38 +59,26 @@ void			short_format_out(t_list *list)
 	ft_printf("\n");
 }
 
-void			process_others(t_ls *ls)
-{
-	t_list		*list;
-
-	list = ls->other_list;
-	if (ls->options & LS_OPT_LONG_FORMAT)
-		long_format_out(list);
-	else
-		short_format_out(list);
-}
-
 int		main(int ac, char **av)
 {
 	t_ls	ls;
-	t_list	*list;
-	char	**args;
+	t_list	*directory_list;
+	t_list	*other_list;
 
 	ls.options = 0;
 	ls.name = av[0];
-	ls.count = 0;
-	list = NULL;
-	args = ++av;
+	++av;
 	ft_printf("--------PROCESSING-----------\n", ac);
 
-	ls.options = retrieve_options(&args, &ls);
-	list = retrieve_arguments(&args, &ls);
-	process_others(&ls);
-	process_arguments(list, &ls);
+	retrieve_options(&av, &ls);
+	retrieve_arguments(&av, &ls, &directory_list, &other_list);
+
+	displayListOrder(directory_list);
+	displayListOrder(other_list);
+
 
 	ft_printf("-----------------------------\n", ac);
 	ft_printf("Nombre d'args: %/r%d%/x\n", ac);
-	ft_printf("Counter d'args: %/r%d%/x\n", ls.count);
 	ft_printf("options: %/r%#.8b%/x\n", ls.options);
 
 	return (1);

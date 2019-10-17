@@ -6,7 +6,7 @@
 /*   By: alngo <alngo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 12:10:57 by alngo             #+#    #+#             */
-/*   Updated: 2019/10/16 16:37:59 by alngo            ###   ########.fr       */
+/*   Updated: 2019/10/17 12:51:21 by alngo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,21 +50,19 @@ void			insert_by_type(t_list **dir, t_list **other,
 		insert_to_list(other, newElement, ls);
 }
 
-t_list			*retrieve_arguments(char ***args, t_ls *ls)
+void			retrieve_arguments(char ***args, t_ls *ls,
+		t_list **directory_list, t_list **other_list)
 {
-	t_list		*directory_list;
 	t_list		*tmp;
 
-	directory_list = NULL;
-	ls->other_list = NULL;
+	*directory_list = NULL;
+	*other_list = NULL;
 	while (**args)
 	{
 		if ((tmp = return_element(**args)))
-			insert_by_type(&directory_list, &ls->other_list, tmp, ls);
+			insert_by_type(directory_list, other_list, tmp, ls);
 		else
 			ls_perror_out(ls, **args);
 		(*args)++;
-		ls->count++;
 	}
-	return (directory_list);
 }

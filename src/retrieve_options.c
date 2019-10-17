@@ -6,7 +6,7 @@
 /*   By: alngo <alngo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 12:08:43 by alngo             #+#    #+#             */
-/*   Updated: 2019/10/16 14:16:15 by alngo            ###   ########.fr       */
+/*   Updated: 2019/10/17 12:53:16 by alngo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,17 +33,14 @@ void		parse_options(char *arg, uint8_t *options, t_ls *ls)
 	}
 }
 
-uint8_t 	retrieve_options(char ***args, t_ls *ls)
+void 		retrieve_options(char ***args, t_ls *ls)
 {
-	uint8_t	options;
-
 	while(**args)
 	{
 		if (**args[0] == '-')
-			parse_options(**args, &options, ls);
+			parse_options(**args, &ls->options, ls);
 		else
 			break;
 		(*args)++;
 	}
-	return (options);
 }
