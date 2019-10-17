@@ -1,0 +1,4 @@
+[submodule "tests"]
+	path = tests
+	url = https://github.com/alngo/ft_ls_test.git
+	branch = master
