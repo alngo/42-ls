@@ -6,7 +6,7 @@
 #    By: alngo <alngo@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/11 11:09:45 by alngo             #+#    #+#              #
-#    Updated: 2019/10/16 15:29:46 by alngo            ###   ########.fr        #
+#    Updated: 2019/10/17 22:42:50 by alngo            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,7 @@ SRC_NAME = main.c\
 	   retrieve_arguments.c\
 	   sort_arguments.c\
 	   tmpToDelete.c
+
 LFT_PATH = ./libft/
 LFT_A = -lft
 
