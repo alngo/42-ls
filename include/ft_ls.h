@@ -6,7 +6,7 @@
 /*   By: alngo <alngo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/11 11:22:37 by alngo             #+#    #+#             */
-/*   Updated: 2019/10/22 10:18:38 by alngo            ###   ########.fr       */
+/*   Updated: 2019/10/22 10:44:47 by alngo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef FT_LS_H
@@ -37,6 +37,8 @@ typedef struct		s_ls_arg
 {
 	struct stat 	stat;
 	char		*name;
+	char		*owner;
+	char		*group;
 }			t_ls_arg;
 
 typedef struct		s_ls_padding
@@ -83,8 +85,8 @@ void 			process_list(t_list *list, t_ls *ls);
 */
 void 			read_write_execute_out(struct stat fileStat);
 void			number_of_links_out(struct stat fileStat, t_ls_padding *pad);
-void			owner_name_out(struct stat fileStat, t_ls_padding *pad);
-void			group_name_out(struct stat fileStat, t_ls_padding *pad);
+void			owner_name_out(t_ls_arg *arg, t_ls_padding *pad);
+void			group_name_out(t_ls_arg *arg, t_ls_padding *pad);
 void			filepath_out(t_ls_arg *arg, t_ls_padding *pad);
 /*
 **	long_formatted_field_out.c
@@ -92,6 +94,11 @@ void			filepath_out(t_ls_arg *arg, t_ls_padding *pad);
 void			number_of_byte_out(struct stat fileStat);
 void			month_day_last_modified_out(struct stat fileStat);
 void			hour_minute_last_modified_out(struct stat fileStat);
+/*
+**	utils.c
+*/
+char			*get_owner_name(uid_t uid);
+char			*get_group_name(gid_t gid);
 
 
 // tmpDoDelete

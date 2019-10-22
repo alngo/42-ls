@@ -6,7 +6,7 @@
 /*   By: alngo <alngo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 12:10:57 by alngo             #+#    #+#             */
-/*   Updated: 2019/10/17 12:51:21 by alngo            ###   ########.fr       */
+/*   Updated: 2019/10/22 10:38:53 by alngo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ t_list			*return_element(char *arg_name)
 	arg.name = arg_name;
 	if (stat(arg_name, &arg.stat) < 0)
 		return (NULL);
+	arg.owner = get_owner_name(arg.stat.st_uid);
+	arg.group = get_group_name(arg.stat.st_gid);
 	if (!(element = ft_lstnew(&arg, sizeof(t_ls_arg))))
 		return (NULL);
 	return (element);

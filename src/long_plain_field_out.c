@@ -6,7 +6,7 @@
 /*   By: alngo <alngo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 10:09:26 by alngo             #+#    #+#             */
-/*   Updated: 2019/10/22 10:11:51 by alngo            ###   ########.fr       */
+/*   Updated: 2019/10/22 10:42:04 by alngo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,18 +36,12 @@ void			number_of_links_out(struct stat fileStat, t_ls_padding *pad)
 	ft_printf("%-*d", pad->links, fileStat.st_nlink);
 }
 
-void			owner_name_out(struct stat fileStat, t_ls_padding *pad)
+void			owner_name_out(t_ls_arg *arg, t_ls_padding *pad)
 {
-	struct passwd	*tmp;
-
-	tmp = getpwuid(fileStat.st_uid);
-	ft_printf("%-*s", pad->owner_name, tmp->pw_name);
+	ft_printf("%-*s", pad->owner_name, arg->owner);
 }
 
-void			group_name_out(struct stat fileStat, t_ls_padding *pad)
+void			group_name_out(t_ls_arg *arg, t_ls_padding *pad)
 {
-	struct group 	*tmp;
-
-	tmp = getgrgid(fileStat.st_gid);
-	ft_printf("%-*s", pad->group_name, tmp->gr_name);
+	ft_printf("%-*s", pad->group_name, arg->group);
 }
