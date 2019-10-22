@@ -6,7 +6,7 @@
 /*   By: alngo <alngo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/11 11:22:37 by alngo             #+#    #+#             */
-/*   Updated: 2019/10/22 13:00:56 by alngo            ###   ########.fr       */
+/*   Updated: 2019/10/22 13:17:19 by alngo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,12 @@ char			*get_owner_name(uid_t uid);
 char			*get_group_name(gid_t gid);
 char			*get_bytes_formatted(off_t size);
 char			*get_links_formatted(nlink_t nlink);
+
+/*
+**	padding.c
+*/
+
+void			set_padding(t_list *list, t_ls_padding *pad);
 
 /*
 **	sort_arguments.c

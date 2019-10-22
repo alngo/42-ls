@@ -6,7 +6,7 @@
 #    By: alngo <alngo@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/11 11:09:45 by alngo             #+#    #+#              #
-#    Updated: 2019/10/22 12:59:31 by alngo            ###   ########.fr        #
+#    Updated: 2019/10/22 13:15:24 by alngo            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,7 @@ SRC_NAME = main.c\
 	   format_field_out2.c\
 	   error_out.c\
 	   utils.c\
+	   padding.c\
 	   tmpToDelete.c
 
 LFT_PATH = ./libft/
