@@ -6,7 +6,7 @@
 /*   By: alngo <alngo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 10:00:49 by alngo             #+#    #+#             */
-/*   Updated: 2019/10/22 12:32:21 by alngo            ###   ########.fr       */
+/*   Updated: 2019/10/22 13:09:30 by alngo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,15 +72,15 @@ void			long_format_out(t_list *list, t_ls_padding *pad)
 
 	tmp = (t_ls_arg *)list->content;
 	read_write_execute_out(tmp->stat);
-	ft_printf(" ");
+	ft_printf("  ");
 	number_of_links_out(tmp, pad);
 	ft_printf(" ");
 	owner_name_out(tmp, pad);
-	ft_printf(" ");
+	ft_printf("  ");
 	group_name_out(tmp, pad);
-	ft_printf(" ");
+	ft_printf("  ");
 	number_of_byte_out(tmp, pad);
-	ft_printf(" ");
+	ft_printf("  ");
 	date_last_modified_out(tmp->stat);
 	ft_printf(" ");
 	filepath_out(tmp, pad);

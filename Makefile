@@ -6,7 +6,7 @@
 #    By: alngo <alngo@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/11 11:09:45 by alngo             #+#    #+#              #
-#    Updated: 2019/10/22 10:44:16 by alngo            ###   ########.fr        #
+#    Updated: 2019/10/22 12:59:31 by alngo            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,8 +23,8 @@ SRC_NAME = main.c\
 	   retrieve_arguments.c\
 	   sort_arguments.c\
 	   format_out.c\
-	   long_plain_field_out.c\
-	   long_formatted_field_out.c\
+	   format_field_out1.c\
+	   format_field_out2.c\
 	   error_out.c\
 	   utils.c\
 	   tmpToDelete.c
