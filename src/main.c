@@ -6,7 +6,7 @@
 /*   By: alngo <alngo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/11 11:14:29 by alngo             #+#    #+#             */
-/*   Updated: 2019/10/17 12:52:51 by alngo            ###   ########.fr       */
+/*   Updated: 2019/10/22 10:16:59 by alngo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,35 +31,7 @@ int			retrieveLongestNameLength(t_list *list)
 	return (longestNameLength);
 }
 
-
-void			process_arguments(t_list *list, t_ls *ls)
-{
-	(void)list;
-	(void)ls;
-}
-
-void			long_format_out(t_list *list)
-{
-	(void)list;
-
-}
-
-void			short_format_out(t_list *list)
-{
-	t_ls_arg	*tmp;
-	int		padding;
-
-	padding = retrieveLongestNameLength(list) + 1;
-	while (list)
-	{
-		tmp = (t_ls_arg *)list->content;
-		ft_printf("%-*s ", padding, tmp->name);
-		list = list->next;
-	}
-	ft_printf("\n");
-}
-
-int		main(int ac, char **av)
+int		ft_ls(int ac, char **av)
 {
 	t_ls	ls;
 	t_list	*directory_list;
@@ -73,13 +45,23 @@ int		main(int ac, char **av)
 	retrieve_options(&av, &ls);
 	retrieve_arguments(&av, &ls, &directory_list, &other_list);
 
-	displayListOrder(directory_list);
-	displayListOrder(other_list);
-
+	process_list(other_list, &ls);
 
 	ft_printf("-----------------------------\n", ac);
+
+	displayListOrder(other_list);
+	displayListOrder(directory_list);
+
+
 	ft_printf("Nombre d'args: %/r%d%/x\n", ac);
 	ft_printf("options: %/r%#.8b%/x\n", ls.options);
-
 	return (1);
+}
+
+int		main(int ac, char **av)
+{
+	int	ret;
+
+	ret = ft_ls(ac, av);
+	return (ret);
 }
