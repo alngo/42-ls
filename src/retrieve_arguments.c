@@ -6,22 +6,24 @@
 /*   By: alngo <alngo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 12:10:57 by alngo             #+#    #+#             */
-/*   Updated: 2019/10/22 10:38:53 by alngo            ###   ########.fr       */
+/*   Updated: 2019/10/22 11:05:23 by alngo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-t_list			*return_element(char *arg_name)
+t_list			*return_element(char *filepath)
 {
 	t_ls_arg	arg;
 	t_list		*element;
 
-	arg.name = arg_name;
-	if (stat(arg_name, &arg.stat) < 0)
+	arg.filepath = filepath;
+	if (stat(filepath, &arg.stat) < 0)
 		return (NULL);
 	arg.owner = get_owner_name(arg.stat.st_uid);
 	arg.group = get_group_name(arg.stat.st_gid);
+	arg.bytes = get_bytes_formatted(arg.stat.st_size);
+	arg.links = get_links_formatted(arg.stat.st_nlink);
 	if (!(element = ft_lstnew(&arg, sizeof(t_ls_arg))))
 		return (NULL);
 	return (element);

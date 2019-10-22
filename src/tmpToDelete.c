@@ -1,8 +1,8 @@
 #include "ft_ls.h"
 
-void 			displayFileStat(const char *arg_name, struct stat *fileStat)
+void 			displayFileStat(const char *filepath, struct stat *fileStat)
 {
-	printf("---------------------------\n"); printf("Information for %s\n", arg_name);
+	printf("---------------------------\n"); printf("Information for %s\n", filepath);
 	printf("---------------------------\n");
 	printf("File Size: \t\t%lld bytes\n",fileStat->st_size);
 	printf("Number of Links: \t%d\n",fileStat->st_nlink);
@@ -27,7 +27,7 @@ void	 displayListOrder(t_list *list)
 		while (tmp)
 		{
 			arg = (t_ls_arg *)tmp->content;
-			ft_printf("%s -> ", arg->name);
+			ft_printf("%s -> ", arg->filepath);
 			tmp = tmp->next;
 		}
 		ft_printf("%/g[END]%/x\n");

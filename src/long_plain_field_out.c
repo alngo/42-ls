@@ -6,7 +6,7 @@
 /*   By: alngo <alngo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 10:09:26 by alngo             #+#    #+#             */
-/*   Updated: 2019/10/22 10:42:04 by alngo            ###   ########.fr       */
+/*   Updated: 2019/10/22 12:31:26 by alngo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void			filepath_out(t_ls_arg *arg, t_ls_padding *pad)
 {
-	ft_printf("%-*s", pad->filepath, arg->name);
+	ft_printf("%-*s", pad->filepath, arg->filepath);
 }
 
 void 			read_write_execute_out(struct stat fileStat)
@@ -31,17 +31,17 @@ void 			read_write_execute_out(struct stat fileStat)
 	ft_printf((fileStat.st_mode & S_IXOTH) ? "x" : "-");
 }
 
-void			number_of_links_out(struct stat fileStat, t_ls_padding *pad)
+void			number_of_links_out(t_ls_arg *arg, t_ls_padding *pad)
 {
-	ft_printf("%-*d", pad->links, fileStat.st_nlink);
+	ft_printf("%*s", pad->links, arg->links);
 }
 
 void			owner_name_out(t_ls_arg *arg, t_ls_padding *pad)
 {
-	ft_printf("%-*s", pad->owner_name, arg->owner);
+	ft_printf("%*s", pad->owner_name, arg->owner);
 }
 
 void			group_name_out(t_ls_arg *arg, t_ls_padding *pad)
 {
-	ft_printf("%-*s", pad->group_name, arg->group);
+	ft_printf("%*s", pad->group_name, arg->group);
 }

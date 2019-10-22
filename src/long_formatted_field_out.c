@@ -6,24 +6,19 @@
 /*   By: alngo <alngo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 10:20:30 by alngo             #+#    #+#             */
-/*   Updated: 2019/10/22 10:20:39 by alngo            ###   ########.fr       */
+/*   Updated: 2019/10/22 12:33:58 by alngo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-void			number_of_byte_out(struct stat fileStat)
+void			number_of_byte_out(t_ls_arg *arg, t_ls_padding *pad)
 {
-	ft_printf("%ld", (long)fileStat.st_size);
+	ft_printf("%*s", pad->bytes, arg->bytes);
 }
 
-void			month_day_last_modified_out(struct stat fileStat)
-{
-	(void)fileStat;
-}
-
-void			hour_minute_last_modified_out(struct stat fileStat)
+void 			date_last_modified_out(struct stat fileStat)
 {
 	(void)fileStat;
+	ft_printf("- date -");
 }
-

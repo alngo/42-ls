@@ -6,7 +6,7 @@
 /*   By: alngo <alngo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 12:09:22 by alngo             #+#    #+#             */
-/*   Updated: 2019/10/16 12:09:23 by alngo            ###   ########.fr       */
+/*   Updated: 2019/10/22 11:05:58 by alngo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int			lexicographicalOrder(void *contentToInsert, void *content)
 	element = (t_ls_arg *)content;
 	elementToInsert = (t_ls_arg *)contentToInsert;
 
-	return (ft_strcmp(elementToInsert->name, element->name));
+	return (ft_strcmp(elementToInsert->filepath, element->filepath));
 }
 
 int			lexicographicalOrderInverted(void *contentToInsert, void *content)
@@ -31,7 +31,7 @@ int			lexicographicalOrderInverted(void *contentToInsert, void *content)
 	element = (t_ls_arg *)content;
 	elementToInsert = (t_ls_arg *)contentToInsert;
 
-	return (ft_strcmp(element->name, elementToInsert->name));
+	return (ft_strcmp(element->filepath, elementToInsert->filepath));
 }
 
 int			compareTimestamp(long a, long b)
