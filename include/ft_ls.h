@@ -6,7 +6,7 @@
 /*   By: alngo <alngo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/11 11:22:37 by alngo             #+#    #+#             */
-/*   Updated: 2019/10/22 12:34:19 by alngo            ###   ########.fr       */
+/*   Updated: 2019/10/22 12:46:48 by alngo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "libft.h"
 # include <dirent.h>
+# include <time.h>
 # include <grp.h>
 # include <pwd.h>
 # include <sys/stat.h>
