@@ -6,11 +6,29 @@
 /*   By: alngo <alngo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 10:44:20 by alngo             #+#    #+#             */
-/*   Updated: 2019/10/22 13:42:04 by alngo            ###   ########.fr       */
+/*   Updated: 2019/11/06 11:48:38 by alngo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
+
+char		get_filetype(mode_t st_mode)
+{
+	if (S_ISFIFO(st_mode))
+		return ('p');
+	else if (S_ISCHR(st_mode))
+		return('c');
+	else if (S_ISDIR(st_mode))
+		return('d');
+	else if (S_ISBLK(st_mode))
+		return('b');
+	else if (S_ISLNK(st_mode))
+		return('l');
+	else if (S_ISSOCK(st_mode))
+		return('s');
+	else
+		return('-');
+}
 
 char		*get_owner_name(uid_t uid)
 {

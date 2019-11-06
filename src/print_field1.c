@@ -6,31 +6,15 @@
 /*   By: alngo <alngo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 09:45:21 by alngo             #+#    #+#             */
-/*   Updated: 2019/11/06 10:54:33 by alngo            ###   ########.fr       */
+/*   Updated: 2019/11/06 11:46:16 by alngo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-void			print_mode(struct stat filestat)
+void			print_mode(t_ls_arg *arg)
 {
-	unsigned int	mode;
-
-	mode = filestat.st_mode;
-	if (S_ISFIFO(mode))
-		ft_printf("p");
-	else if (S_ISCHR(mode))
-		ft_printf("c");
-	else if (S_ISDIR(mode))
-		ft_printf("d");
-	else if (S_ISBLK(mode))
-		ft_printf("b");
-	else if (S_ISLNK(mode))
-		ft_printf("l");
-	else if (S_ISSOCK(mode))
-		ft_printf("s");
-	else
-		ft_printf("-");
+	ft_printf("%c", arg->filetype);
 }
 
 void 			print_chmod(struct stat filestat)

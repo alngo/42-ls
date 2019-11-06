@@ -6,7 +6,7 @@
 /*   By: alngo <alngo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 12:10:57 by alngo             #+#    #+#             */
-/*   Updated: 2019/11/06 11:22:28 by alngo            ###   ########.fr       */
+/*   Updated: 2019/11/06 11:45:14 by alngo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ t_list			*return_element(char *filepath, char *name)
 	if (stat(filepath, &arg.stat) < 0)
 		return (NULL);
 	arg.owner = get_owner_name(arg.stat.st_uid);
+	arg.filetype = get_filetype(arg.stat.st_mode);
 	arg.group = get_group_name(arg.stat.st_gid);
 	arg.bytes = get_bytes_formatted(arg.stat.st_size);
 	arg.links = get_links_formatted(arg.stat.st_nlink);

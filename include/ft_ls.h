@@ -6,7 +6,7 @@
 /*   By: alngo <alngo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/11 11:22:37 by alngo             #+#    #+#             */
-/*   Updated: 2019/11/06 11:21:37 by alngo            ###   ########.fr       */
+/*   Updated: 2019/11/06 11:48:29 by alngo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ typedef struct		s_ls
 typedef struct		s_ls_arg
 {
 	struct stat 	stat;
+	char		filetype;
 	char		*filepath;
 	char		*name;
 	char		*owner;
@@ -96,7 +97,7 @@ void			print_short_format(t_list *list, t_ls_padding *pad);
 **	print_field1.c
 */
 
-void			print_mode(struct stat filestat);
+void			print_mode(t_ls_arg *arg);
 void 			print_chmod(struct stat filestat);
 void			print_nlinks(t_ls_arg *arg, t_ls_padding *pad);
 void			print_owner_name(t_ls_arg *arg, t_ls_padding *pad);
@@ -122,6 +123,7 @@ void			ls_perror_out(t_ls *ls, char *name);
 **	utils.c
 */
 
+char			get_filetype(mode_t st_mode);
 char			*get_owner_name(uid_t uid);
 char			*get_group_name(gid_t gid);
 char			*get_bytes_formatted(off_t size);

@@ -6,7 +6,7 @@
 /*   By: alngo <alngo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 09:45:10 by alngo             #+#    #+#             */
-/*   Updated: 2019/11/06 11:02:51 by alngo            ###   ########.fr       */
+/*   Updated: 2019/11/06 11:51:56 by alngo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,13 @@ void 			print_mtime(struct stat filestat)
 
 void			print_name(t_ls_arg *arg, t_ls_padding *pad)
 {
-	ft_printf("%-*s", pad->name, arg->name);
+	char		type;
+
+	type = arg->filetype;
+	if (type == 'd')
+		ft_printf("%/b%-*s%/x", pad->name, arg->name);
+	else if (type == 'l')
+		ft_printf("%/g%-*s%/x", pad->name, arg->name);
+	else
+		ft_printf("%-*s", pad->name, arg->name);
 }

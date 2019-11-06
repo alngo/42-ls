@@ -6,7 +6,7 @@
 /*   By: alngo <alngo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 09:44:47 by alngo             #+#    #+#             */
-/*   Updated: 2019/11/06 11:37:31 by alngo            ###   ########.fr       */
+/*   Updated: 2019/11/06 11:46:35 by alngo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ void			print_long_format(t_list *list, t_ls_padding *pad)
 	t_ls_arg	*tmp;
 
 	tmp = (t_ls_arg *)list->content;
-	print_mode(tmp->stat);
+	print_mode(tmp);
 	print_chmod(tmp->stat);
 	ft_printf("  ");
 	print_nlinks(tmp, pad);
