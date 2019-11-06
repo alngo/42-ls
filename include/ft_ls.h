@@ -6,7 +6,7 @@
 /*   By: alngo <alngo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/11 11:22:37 by alngo             #+#    #+#             */
-/*   Updated: 2019/10/22 13:17:19 by alngo            ###   ########.fr       */
+/*   Updated: 2019/11/06 09:18:17 by alngo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ void 			process_list(t_list *list, t_ls *ls);
 **	long_plain_field_out.c
 */
 
+void			type_of_file_out(struct stat filestat);
 void 			read_write_execute_out(struct stat filestat);
 void			number_of_links_out(t_ls_arg *arg, t_ls_padding *pad);
 void			owner_name_out(t_ls_arg *arg, t_ls_padding *pad);
