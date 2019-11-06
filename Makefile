@@ -6,7 +6,7 @@
 #    By: alngo <alngo@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/11 11:09:45 by alngo             #+#    #+#              #
-#    Updated: 2019/10/16 10:17:58 by alngo            ###   ########.fr        #
+#    Updated: 2019/11/06 10:00:19 by alngo            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,13 +19,22 @@ OBJ_PATH = obj
 INC_PATH= ./include
 
 SRC_NAME = main.c\
-	   out.c\
-	   option.c\
-	   sort.c
+	   padding.c\
+	   print_error.c\
+	   print_field1.c\
+	   print_field2.c\
+	   processing.c\
+	   retrieve_arguments.c\
+	   retrieve_options.c\
+	   sort_arguments.c\
+	   utils.c
+
 LFT_PATH = ./libft/
 LFT_A = -lft
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
+
+SANITIZE = -fsanitize=address
 
 SRC = $(addprefix $(SRC_PATH)/,$(SRC_NAME))
 OBJ = $(addprefix $(OBJ_PATH)/,$(OBJ_NAME))
@@ -41,7 +50,7 @@ all: $(NAME)
 $(NAME): $(OBJ_PATH) $(OBJ) $(INC)
 	@echo "${RED}Libft Compilation...${NC}"
 	make -C $(LFT_PATH)
-	$(CC) $(CFLAGS) -I $(INC_PATH) -L $(LFT_PATH) $(LFT_A) \
+	$(CC) $(CFLAGS) $(SANITIZE) -I $(INC_PATH) -L $(LFT_PATH) $(LFT_A) \
 	   $(OBJ) -o $(NAME) $(FRAMEWORK)
 	@echo "${RED}Ready to go !${NC}"
 

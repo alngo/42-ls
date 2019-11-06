@@ -1,44 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   option.c                                           :+:      :+:    :+:   */
+/*   retrieve_options.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alngo <alngo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/25 14:47:15 by alngo             #+#    #+#             */
-/*   Updated: 2019/10/16 11:29:29 by alngo            ###   ########.fr       */
+/*   Created: 2019/10/16 12:08:43 by alngo             #+#    #+#             */
+/*   Updated: 2019/11/06 11:22:55 by alngo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-void		parse_options(char *arg, t_ls *ls)
+void		parse_options(char *arg, uint8_t *options, t_ls *ls)
 {
 	arg++;
 	while(*arg)
 	{
 		if (*arg == 'R')
-			ls->options |= LS_OPT_RECURSIVE;
+			*options |= LS_OPT_RECURSIVE;
 		else if (*arg == 'a')
-			ls->options |= LS_OPT_INCLUDE_DOT;
+			*options |= LS_OPT_SHOW_HIDDEN;
 		else if (*arg == 'l')
-			ls->options |= LS_OPT_LONG_FORMAT;
+			*options |= LS_OPT_LONG_FORMAT;
 		else if (*arg == 'r')
-			ls->options |= LS_OPT_REVERSE_ORDER;
+			*options |= LS_OPT_REVERSE_ORDER;
 		else if (*arg == 't')
-			ls->options |= LS_OPT_SORT_BY_TIME;
+			*options |= LS_OPT_SORT_BY_TIME;
 		else
 			illegal_option_out(ls, *arg);
 		arg++;
 	}
 }
 
-void		retrieve_options(char ***args, t_ls *ls)
+void 		retrieve_options(char ***args, t_ls *ls)
 {
 	while(**args)
 	{
 		if (**args[0] == '-')
-			parse_options(**args, ls);
+			parse_options(**args, &ls->options, ls);
 		else
 			break;
 		(*args)++;
