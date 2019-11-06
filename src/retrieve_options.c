@@ -6,7 +6,7 @@
 /*   By: alngo <alngo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 12:08:43 by alngo             #+#    #+#             */
-/*   Updated: 2019/10/22 12:20:03 by alngo            ###   ########.fr       */
+/*   Updated: 2019/11/06 11:22:55 by alngo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void		parse_options(char *arg, uint8_t *options, t_ls *ls)
 		if (*arg == 'R')
 			*options |= LS_OPT_RECURSIVE;
 		else if (*arg == 'a')
-			*options |= LS_OPT_INCLUDE_DOT;
+			*options |= LS_OPT_SHOW_HIDDEN;
 		else if (*arg == 'l')
 			*options |= LS_OPT_LONG_FORMAT;
 		else if (*arg == 'r')

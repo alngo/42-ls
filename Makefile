@@ -6,7 +6,7 @@
 #    By: alngo <alngo@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/11 11:09:45 by alngo             #+#    #+#              #
-#    Updated: 2019/11/06 09:31:28 by alngo            ###   ########.fr        #
+#    Updated: 2019/11/06 10:00:19 by alngo            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ SRC_NAME = main.c\
 	   print_error.c\
 	   print_field1.c\
 	   print_field2.c\
-	   process_list.c\
+	   processing.c\
 	   retrieve_arguments.c\
 	   retrieve_options.c\
 	   sort_arguments.c\

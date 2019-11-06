@@ -6,18 +6,19 @@
 /*   By: alngo <alngo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 12:10:57 by alngo             #+#    #+#             */
-/*   Updated: 2019/10/22 11:05:23 by alngo            ###   ########.fr       */
+/*   Updated: 2019/11/06 11:22:28 by alngo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-t_list			*return_element(char *filepath)
+t_list			*return_element(char *filepath, char *name)
 {
 	t_ls_arg	arg;
 	t_list		*element;
 
 	arg.filepath = filepath;
+	arg.name = name;
 	if (stat(filepath, &arg.stat) < 0)
 		return (NULL);
 	arg.owner = get_owner_name(arg.stat.st_uid);
@@ -33,8 +34,12 @@ void			insert_to_list(t_list **list,
 		t_list *newElement, t_ls *ls)
 {
 	void		*func;
+	t_ls_arg	*tmp;
 
 	func = &lexicographicalOrder;
+	tmp = (t_ls_arg *)newElement->content;
+	if (!(ls->options & LS_OPT_SHOW_HIDDEN) && tmp->name[0] == '.')
+		return ;
 	if (ls->options & LS_OPT_REVERSE_ORDER)
 		func = &lexicographicalOrderInverted;
 	else if (ls->options & LS_OPT_SORT_BY_TIME)
@@ -63,7 +68,7 @@ void			retrieve_arguments(char ***args, t_ls *ls,
 	*other_list = NULL;
 	while (**args)
 	{
-		if ((tmp = return_element(**args)))
+		if ((tmp = return_element(**args, **args)))
 			insert_by_type(directory_list, other_list, tmp, ls);
 		else
 			ls_perror_out(ls, **args);

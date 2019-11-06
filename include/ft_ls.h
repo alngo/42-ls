@@ -6,7 +6,7 @@
 /*   By: alngo <alngo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/11 11:22:37 by alngo             #+#    #+#             */
-/*   Updated: 2019/11/06 09:25:57 by alngo            ###   ########.fr       */
+/*   Updated: 2019/11/06 11:21:37 by alngo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ typedef enum		e_ls_options
 {
 	LS_OPT_LONG_FORMAT = 0x01,
 	LS_OPT_RECURSIVE = 0x02,
-	LS_OPT_INCLUDE_DOT = 0x04,
+	LS_OPT_SHOW_HIDDEN = 0x04,
 	LS_OPT_REVERSE_ORDER = 0x08,
 	LS_OPT_SORT_BY_TIME = 0x10
 }			t_ls_options;
@@ -33,12 +33,14 @@ typedef struct		s_ls
 {
 	char		*name;
 	uint8_t		options;
+	size_t		count;
 }			t_ls;
 
 typedef struct		s_ls_arg
 {
 	struct stat 	stat;
 	char		*filepath;
+	char		*name;
 	char		*owner;
 	char		*group;
 	char		*links; //TOfree
@@ -47,7 +49,7 @@ typedef struct		s_ls_arg
 
 typedef struct		s_ls_padding
 {
-	int		filepath;
+	int		name;
 	int		owner_name;
 	int		group_name;
 	int		bytes;
@@ -66,6 +68,9 @@ void			retrieve_options(char ***av, t_ls *ls);
 
 void			retrieve_arguments(char ***args, t_ls *ls,
 		t_list **directory_list, t_list **other_list);
+void			insert_to_list(t_list **list,
+		t_list *newElement, t_ls *ls);
+t_list			*return_element(char *filepath, char *name);
 void			add_to_list(t_list **list, t_list *newElement, t_ls *ls);
 
 /*
@@ -79,30 +84,31 @@ int			lexicographicalOrderInverted(void *contentToInsert,
 int			sortByTime(void *contentToInsert, void *content);
 
 /*
-**	process_list.c
+**	processing.c
 */
 
+void			process_directory(t_list *list, t_ls *ls);
 void 			process_list(t_list *list, t_ls *ls);
-void			long_format_out(t_list *list, t_ls_padding *pad);
-void			short_format_out(t_list *list, t_ls_padding *pad);
+void			print_long_format(t_list *list, t_ls_padding *pad);
+void			print_short_format(t_list *list, t_ls_padding *pad);
 
 /*
 **	print_field1.c
 */
 
-void			type_of_file_out(struct stat filestat);
-void 			read_write_execute_out(struct stat filestat);
-void			number_of_links_out(t_ls_arg *arg, t_ls_padding *pad);
-void			owner_name_out(t_ls_arg *arg, t_ls_padding *pad);
-void			group_name_out(t_ls_arg *arg, t_ls_padding *pad);
+void			print_mode(struct stat filestat);
+void 			print_chmod(struct stat filestat);
+void			print_nlinks(t_ls_arg *arg, t_ls_padding *pad);
+void			print_owner_name(t_ls_arg *arg, t_ls_padding *pad);
+void			print_group_name(t_ls_arg *arg, t_ls_padding *pad);
 
 /*
 **	print_field2.c
 */
 
-void			number_of_byte_out(t_ls_arg *arg, t_ls_padding *pad);
-void 			date_last_modified_out(struct stat filestat);
-void			filepath_out(t_ls_arg *arg, t_ls_padding *pad);
+void			print_bytes(t_ls_arg *arg, t_ls_padding *pad);
+void 			print_mtime(struct stat filestat);
+void			print_name(t_ls_arg *arg, t_ls_padding *pad);
 
 /*
 **	print_error.c
