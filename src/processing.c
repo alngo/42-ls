@@ -6,13 +6,13 @@
 /*   By: alngo <alngo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 09:44:47 by alngo             #+#    #+#             */
-/*   Updated: 2019/11/06 11:46:35 by alngo            ###   ########.fr       */
+/*   Updated: 2019/11/06 12:27:39 by alngo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-t_list		*retrieve_list(char *dirname, t_ls *ls)
+t_list		*retrieve_list(char *dirpath, t_ls *ls)
 {
 	t_list		*list;
 	t_list		*tmp;
@@ -22,16 +22,15 @@ t_list		*retrieve_list(char *dirname, t_ls *ls)
 	(void)tmp;
 
 	list = NULL;
-	if (!(dirp = opendir(dirname)))
-		ls_perror_out(ls, dirname);
+	if (!(dirp = opendir(dirpath)))
+		ls_perror_out(ls, dirpath);
 	else
 		while((dp = readdir(dirp)) != NULL)
 		{
-			filepath = ft_strjoin(dirname, "/");
+			filepath = ft_strjoin(dirpath, "/");
 			filepath = ft_strjoin(filepath, dp->d_name);
 			if ((tmp = return_element(filepath, dp->d_name)))
 				insert_to_list(&list, tmp, ls);
-			ft_strdel(&filepath);
 		}
 	return (list);
 }
@@ -43,12 +42,13 @@ void			process_directory(t_list *list, t_ls *ls)
 
 	if (ls->count)
 		ft_printf("\n");
-
 	if (!list && !ls->count)
 	{
 		args = retrieve_list(".", ls);
 		process_list(args, ls);
 		ft_printf("\n");
+		if (ls->options & LS_OPT_RECURSIVE)
+			process_directory(args, ls);
 	}
 	else
 	{
@@ -58,8 +58,6 @@ void			process_directory(t_list *list, t_ls *ls)
 			if (S_ISDIR(tmp->stat.st_mode))
 			{
 				args = retrieve_list(tmp->filepath, ls);
-				if (ls->count || ft_lstcount(list) > 1)
-					ft_printf("%s:\n", tmp->name);
 				process_list(args, ls);
 				ft_printf("\n");
 				if (ls->options & LS_OPT_RECURSIVE)
