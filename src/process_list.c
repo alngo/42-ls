@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   format_out.c                                       :+:      :+:    :+:   */
+/*   process_list.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alngo <alngo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 10:00:49 by alngo             #+#    #+#             */
-/*   Updated: 2019/11/06 09:19:05 by alngo            ###   ########.fr       */
+/*   Updated: 2019/11/06 09:28:46 by alngo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,10 @@ void 			process_list(t_list *list, t_ls *ls)
 	set_padding(list, &padding);
 	while (list)
 	{
-		if (ls->options & LS_OPT_LONG_FORMAT)
+		if (ls->options & LS_OPT_LONG_FORMAT) {
 			long_format_out(list, &padding);
+			ft_printf("\n");
+		}
 		else
 			short_format_out(list, &padding);
 		list = list->next;
@@ -52,7 +54,6 @@ void			long_format_out(t_list *list, t_ls_padding *pad)
 	date_last_modified_out(tmp->stat);
 	ft_printf(" ");
 	filepath_out(tmp, pad);
-	ft_printf("\n");
 }
 
 void			short_format_out(t_list *list, t_ls_padding *pad)
